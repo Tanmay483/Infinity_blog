@@ -114,3 +114,20 @@ exports.delete = (req, res) => {
     } else res.send({ message: `blog was deleted successfully!` });
   });
 };
+
+// get cid category
+exports.findcId = (req, res) => {
+  Blog.findcId(req.params.cId, (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `Not found blog with id ${req.params.cId}.`
+          });
+        } else {
+          res.status(500).send({
+            message: "Error retrieving blog with bId " + req.params.cId
+          });
+        }
+      } else res.send(data);
+    });
+  };

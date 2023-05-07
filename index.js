@@ -41,5 +41,4 @@ app.listen(PORT, () => {
 });
 
 //image baki cha badha ma
-// change all controller according to table
 // blog ma cId category satha connect karvni

@@ -107,5 +107,24 @@ Blog.remove = (bId, result) => {
         result(null, res);
     });
 };
+
+// get cid from category
+
+Blog.findcId = (cId, result) => {
+    sql.query(`SELECT tbl_blogs.cId,tbl_blogs.iParentCatID,tbl_blogs.vBlogTitle	,tbl_blogs.vBlogDescription,tbl_blogs.vBlogFeatureImage,tbl_blogs.vBlogThumbnailImage,tbl_blogs.tCreatedDate,tbl_blogs.tUpdatedDate,tbl_categories.vCategoryName,tbl_categories.vCategorySlug,tbl_categories.vCategoryImage FROM tbl_blogs INNER JOIN tbl_categories ON tbl_blogs.cId = tbl_categories.cId `, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+        }
+        if (res.length) {
+            console.log("found blog: ", res);
+            result(null, res);
+            return;
+        }
+        result({ kind: "not_found" }, null);
+    });
+};
+//SELECT * FROM tbl_blogs WHERE cId = ${cId}
+
 module.exports = Blog;
-// image uplod is the main task & main task is remain

@@ -4,19 +4,22 @@ module.exports = app => {
     var router = require("express").Router();
   
     // Create a new blog
-    router.post("/", blog.create);//done
+    router.post("/", blog.create);
   
     // Retrieve all blog
-    router.get("/", blog.findAll);  //done
+    router.get("/", blog.findAll);  
 
     //Retrive blog by id
-    router.get("/:bId",blog.findId)  //done
+    router.get("/:bId",blog.findId)  
   
     // Update a blog with id
-    router.put("/:bId", blog.update);//done
+    router.put("/:bId", blog.update);
   
     // Delete a blog with id
-    router.delete("/:bId", blog.delete);  //done
+    router.delete("/:bId", blog.delete);
+    
+    // get cid from category
+    router.get("/catagory/:cId",blog.findcId)
   
     app.use('/blog', router);
 };
