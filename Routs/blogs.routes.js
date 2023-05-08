@@ -19,7 +19,7 @@ module.exports = app => {
     router.delete("/:bId", blog.delete);
     
     // get cid from category
-    router.get("/catagory", blog.cetegory)
+    router.get("/catagory/:cId", blog.category)
   
     app.use('/blog', router);
 };
