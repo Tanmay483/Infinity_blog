@@ -10,7 +10,7 @@ module.exports = app => {
     router.get("/", blog.findAll);  
 
     //Retrive blog by id
-    router.get("/:bId",blog.findId)  
+    router.get("/bId/:bId",blog.findId)
   
     // Update a blog with id
     router.put("/:bId", blog.update);
@@ -19,8 +19,7 @@ module.exports = app => {
     router.delete("/:bId", blog.delete);
     
     // get cid from category
-    router.get("/catagory/:cId",blog.findcId)
+    router.get("/catagory", blog.cetegory)
   
     app.use('/blog', router);
 };
-//all spne

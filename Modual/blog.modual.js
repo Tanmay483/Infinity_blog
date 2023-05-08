@@ -48,7 +48,7 @@ Blog.findId = (bId, result) => {
     });
 };
 
-//GET all
+// GET all
 
 Blog.getAll = (title, result) => {
     let query = "SELECT * FROM tbl_blogs ";
@@ -110,21 +110,20 @@ Blog.remove = (bId, result) => {
 
 // get cid from category
 
-Blog.findcId = (cId, result) => {
-    sql.query(`SELECT tbl_blogs.cId,tbl_blogs.iParentCatID,tbl_blogs.vBlogTitle	,tbl_blogs.vBlogDescription,tbl_blogs.vBlogFeatureImage,tbl_blogs.vBlogThumbnailImage,tbl_blogs.tCreatedDate,tbl_blogs.tUpdatedDate,tbl_categories.vCategoryName,tbl_categories.vCategorySlug,tbl_categories.vCategoryImage FROM tbl_blogs INNER JOIN tbl_categories ON tbl_blogs.cId = tbl_categories.cId `, (err, res) => {
+Blog.category = (result) => {
+    let query = "SELECT tbl_blogs.*,tbl_categories.vCategoryName,tbl_categories.vCategorySlug,tbl_categories.vCategoryImage,tbl_categories.iParentCatID as ParentId FROM tbl_blogs INNER JOIN tbl_categories ON tbl_blogs.cId = tbl_categories.cId ";
+
+    sql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(err, null);
+            result(null, err);
             return;
         }
-        if (res.length) {
-            console.log("found blog: ", res);
-            result(null, res);
-            return;
-        }
-        result({ kind: "not_found" }, null);
+
+        console.log("Categories: ", res);
+        result(null, res);
     });
 };
-//SELECT * FROM tbl_blogs WHERE cId = ${cId}
+// ;
 
 module.exports = Blog;
