@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const cors = require("cors");
 
 const app = express();
-
+app.use(cors)
 // app.use(cors(corsOptions))
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
@@ -41,4 +41,3 @@ app.listen(PORT, () => {
 });
 
 //image baki cha badha ma
-// blog ma cId category satha connect karvni
