@@ -31,7 +31,6 @@ User.create(user, (err, data) => {
         message:
           err.message || "Some error occurred while creating the User."
       });
-    else res.send(data);
   });
   jwt.sign({ user }, scretKey, { expiresIn: '300s' }, (err, token) => {
     res.json({
