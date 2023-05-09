@@ -7,7 +7,7 @@ module.exports = app => {
     router.post("/", blog.create);
   
     // Retrieve all blog
-    router.get("/", blog.findAll);  
+    router.get("/", blog.findAll);
 
     //Retrive blog by id
     router.get("/bId/:bId",blog.findId)
