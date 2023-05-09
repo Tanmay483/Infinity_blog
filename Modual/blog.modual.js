@@ -51,7 +51,7 @@ Blog.findId = (bId, result) => {
 // GET all
 
 Blog.getAll = (title, result) => {
-    let query = "SELECT * FROM tbl_blogs ";
+    let query = "SELECT tbl_blogs.*,tbl_categories.vCategoryName,tbl_categories.vCategorySlug,tbl_categories.vCategoryImage,tbl_categories.iParentCatID as ParentId FROM tbl_blogs INNER JOIN tbl_categories ON tbl_blogs.cId = tbl_categories.cId ";
 
     sql.query(query, (err, res) => {
         if (err) {
