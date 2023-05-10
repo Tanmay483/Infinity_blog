@@ -1,4 +1,4 @@
-const Description = require('../Modual/description.modual');
+const Description = require('../models/description.modual');
 
 
 // Create and Save a new Description

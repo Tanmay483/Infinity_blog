@@ -1,6 +1,6 @@
-const Blog = require('../Modual/blog.modual');
+const Category = require('../models/category.modual');
 
-// Create and Save a new Tutorial
+// Create and Save a new category
 exports.create = (req, res) => {
   // Validate request
   if (!req.body) {
@@ -9,21 +9,19 @@ exports.create = (req, res) => {
     });
   }
 
-  // Create a Tutorial
-  const blog = new Blog({
-     cId : req.body.cId,
+  // Create a category
+  const category = new Category({
+     vCategoryName : req.body.vCategoryName,
+     vCategorySlug : req.body.vCategorySlug,
      iParentCatID : req.body.iParentCatID,
-     vBlogTitle: req.body.vBlogTitle,
-     vBlogDescription : req.body.vBlogDescription,
-     vBlogFeatureImage : req.body.vBlogFeatureImage,
-     vBlogThumbnailImage : req.body.vBlogThumbnailImage,
+     vCategoryImage : req.file.filename,
      tCreatedDate : req.body.tCreatedDate,
      tUpdatedDate : req.body.tUpdatedDate,
   });
 
 // POST
 
-Blog.create(blog, (err, data) => {
+Category.create(category, (err, data) => {
     if (err)
       res.status(500).send({
         message:
@@ -38,7 +36,7 @@ Blog.create(blog, (err, data) => {
 exports.findAll = (req, res) => {
   const title = req.query.title;
 
-  Blog.getAll(title, (err, data) => {
+  Category.getAll(title, (err, data) => {
     if (err)
       res.status(500).send({
         message:
@@ -50,16 +48,16 @@ exports.findAll = (req, res) => {
 
 //GET sub category
 
-exports.findId = (req, res) => {
-  Blog.findId(req.params.bId, (err, data) => {
+exports.findParentId = (req, res) => {
+  Category.findParentId(req.params.iParentCatID, (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `Not found blog with id ${req.params.bId}.`
+            message: `Not found Categories with id ${req.params.iParentCatID}.`
           });
         } else {
           res.status(500).send({
-            message: "Error retrieving blog with Id " + req.params.bId
+            message: "Error retrieving Categories with iParentCatID " + req.params.iParentCatID
           });
         }
       } else res.send(data);
@@ -78,18 +76,18 @@ exports.update = (req, res) => {
 
   console.log(req.body);
 
-  Blog.updateById(
-    req.params.bId,
-    new Blog(req.body),
+  Category.updateById(
+    req.params.cId,
+    new Category(req.body),
     (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `Not found blog with id ${req.params.bId}.`
+            message: `Not found Categories with id ${req.params.cId}.`
           });
         } else {
           res.status(500).send({
-            message: "Error updating blog with id " + req.params.bId
+            message: "Error updating Categories with id " + req.params.cId
           });
         }
       } else res.send(data);
@@ -97,37 +95,21 @@ exports.update = (req, res) => {
   );
 };
 
-// DELETE Tutorial 
+// DELETE category 
 
 exports.delete = (req, res) => {
-  Blog.remove(req.params.bId, (err, data) => {
+  Category.remove(req.params.cId, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Not found blog with id ${req.params.bId}.`
+          message: `Not found Categories with id ${req.params.cId}.`
         });
       } else {
         res.status(500).send({
-          message: "Could not delete blog with id " + req.params.bId
+          message: "Could not delete Categories with id " + req.params.cId
         });
       }
-    } else res.send({ message: `blog was deleted successfully!` });
+    } else res.send({ message: `Categories was deleted successfully!` });
   });
 };
 
-// get cid category
-exports.category = (req, res) => {
-  Blog.category(req.params.cId, (err, data) => {
-      if (err) {
-        if (err.kind === "not_found") {
-          res.status(404).send({
-            message: `Not found category with id ${req.params.cId}.`
-          });
-        } else {
-          res.status(500).send({
-            message: "Error retrieving category with Id " + req.params.cId
-          });
-        }
-      } else res.send(data);
-    });
-  };

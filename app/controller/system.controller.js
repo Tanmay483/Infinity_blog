@@ -1,4 +1,4 @@
-const System = require('../Modual/system.modual');
+const System = require('../models/system.modual');
 
 
 // Create and Save a new Tutorial

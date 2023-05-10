@@ -25,11 +25,11 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to Infinity Blog" });
 });
 
-require("./Routs/user.routes")(app);
-require('./Routs/catageories.routes')(app);
-require('./Routs/blogs.routes')(app)
-require('./Routs/system.routes')(app)
-require('./Routs/description.routs')(app)
+require('./app/routes/user.routes')(app);
+require('./app/routes/catageories.routes')(app);
+require('./app/routes/blogs.routes')(app)
+require('./app/routes/system.routes')(app)
+require('./app/routes/description.routs')(app)
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

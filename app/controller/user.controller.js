@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const User = require('../Modual/user.modal');
+const User = require('../models/user.modal');
 let scretKey = 'scretKey';
 
 // Create and Save a new Tutorial
