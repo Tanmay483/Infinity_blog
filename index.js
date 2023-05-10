@@ -1,8 +1,5 @@
-// const multer = require('multer') 
 const express = require("express");
-// const jwt = require('jsonwebtoken');
-const bodyParser = require('body-parser');
-// const dotenv = require('dotenv')
+const bodyParser = require('body-parser')
 const cors = require("cors");
 
 const app = express();
@@ -20,8 +17,8 @@ app.use(function(req, res, next) {
 app.use(express.json()); 
 
 // parse requests of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json())
+app.use(express.urlencoded({ extended: true }));
 
 
 app.get("/", (req, res) => {

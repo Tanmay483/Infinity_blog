@@ -1,5 +1,5 @@
 const Category = require('../Modual/category.modual');
-const multer = require('multer')
+
 // Create and Save a new category
 exports.create = (req, res) => {
   // Validate request
@@ -14,7 +14,7 @@ exports.create = (req, res) => {
      vCategoryName : req.body.vCategoryName,
      vCategorySlug : req.body.vCategorySlug,
      iParentCatID : req.body.iParentCatID,
-     vCategoryImage : req.body.vCategoryImage,
+     vCategoryImage : req.file.filename,
      tCreatedDate : req.body.tCreatedDate,
      tUpdatedDate : req.body.tUpdatedDate,
   });
@@ -113,15 +113,3 @@ exports.delete = (req, res) => {
   });
 };
 
-// image controller
-
-const upload = multer({
-  storage: multer.diskStorage({
-    destination: function(req,fille,cb){
-      cb(null,"./Images")
-    },
-    filename: function(req,file,cb){
-      cb(null, file.filename +"-"+ Date.now()+ '.png','.jpg','.gif','.jpeg')
-    }
-  })
-})
