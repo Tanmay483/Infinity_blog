@@ -20,7 +20,7 @@ module.exports = app => {
     // Delete a Description with id
     router.delete("/:abId", Description.delete);
 
-    app.use('/description', router);
+    app.use('/app/description', router);
 };
 
 // all done

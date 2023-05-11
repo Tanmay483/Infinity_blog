@@ -18,7 +18,7 @@ module.exports = app => {
     // Delete a blog with id
     router.delete("/:sId", system.delete);  
   
-    app.use('/system', router);
+    app.use('/app/system', router);
 };
 
 // system api all done and also checked all working

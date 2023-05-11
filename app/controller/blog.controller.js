@@ -20,14 +20,13 @@ exports.create = (req, res) => {
      tCreatedDate : req.body.tCreatedDate,
      tUpdatedDate : req.body.tUpdatedDate,
   });
-
 // POST
 
 Blog.create(blog, (err, data) => {
     if (err)
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Categories."
+          err.message || "Some error occurred while creating the blog."
       });
     else res.send(data);
   });

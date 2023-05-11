@@ -25,6 +25,7 @@ Blog.create = (newblog, result) => {
 
         console.log("created blog: ", { bId: res.insertbId, ...newblog });
         result(null, { bId: res.insertbId, ...newblog });
+        console.log(newblog.vBlogFeatureImage)
     });
 };
 
@@ -85,7 +86,6 @@ Blog.updateById = (bId, blog, result) => {
 
             console.log("updated blog: ", { bId: bId, ...blog });
             result(null, { bId: bId, ...blog });
-            console.log(blog.vBlogFeatureImage)
         }
     );
 };
