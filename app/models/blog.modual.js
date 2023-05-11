@@ -23,7 +23,7 @@ Blog.create = (newblog, result) => {
             return;
         }
 
-        console.log("created categories: ", { bId: res.insertbId, ...newblog });
+        console.log("created blog: ", { bId: res.insertbId, ...newblog });
         result(null, { bId: res.insertbId, ...newblog });
     });
 };
@@ -83,8 +83,9 @@ Blog.updateById = (bId, blog, result) => {
                 return;
             }
 
-            console.log("updated categories: ", { bId: bId, ...blog });
+            console.log("updated blog: ", { bId: bId, ...blog });
             result(null, { bId: bId, ...blog });
+            console.log(blog.vBlogFeatureImage)
         }
     );
 };

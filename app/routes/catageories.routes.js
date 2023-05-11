@@ -1,4 +1,4 @@
-const upload = require('../imageController/catageoryImage.controller')
+const upload = require('../imageController/catageory.image.controller')
 module.exports = app => {
     const category = require('../controller/category.controller');
   

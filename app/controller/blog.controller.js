@@ -15,8 +15,8 @@ exports.create = (req, res) => {
      iParentCatID : req.body.iParentCatID,
      vBlogTitle: req.body.vBlogTitle,
      vBlogDescription : req.body.vBlogDescription,
-     vBlogFeatureImage : req.body.vBlogFeatureImage,
-     vBlogThumbnailImage : req.file.filename,
+     vBlogFeatureImage : req.file.filename,
+     vBlogThumbnailImage : req.body.vBlogThumbnailImage,
      tCreatedDate : req.body.tCreatedDate,
      tUpdatedDate : req.body.tUpdatedDate,
   });
@@ -121,11 +121,11 @@ exports.category = (req, res) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `Not found category with id ${req.params.cId}.`
+            message: `Not found blog with id ${req.params.cId}.`
           });
         } else {
           res.status(500).send({
-            message: "Error retrieving category with Id " + req.params.cId
+            message: "Error retrieving blog with Id " + req.params.cId
           });
         }
       } else res.send(data);

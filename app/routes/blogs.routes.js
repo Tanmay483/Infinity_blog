@@ -1,5 +1,4 @@
-const multer = require('../imageController/blog.Thubnail.controller')
-// const mult = require('../imageController/blogThubnailImage.controller')
+const multer = require('../imageController/blog.imageController')
 
 module.exports = app => {
     const blog = require('../controller/blog.controller');
@@ -7,7 +6,7 @@ module.exports = app => {
     var router = require("express").Router();
   
     // Create a new blog
-    router.post("/",multer, blog.create);
+    router.post("/",multer,blog.create);
   
     // Retrieve all blog
     router.get("/", blog.findAll);
@@ -16,7 +15,7 @@ module.exports = app => {
     router.get("/bId/:bId",blog.findId)
   
     // Update a blog with id
-    router.put("/:bId", multer,blog.update);
+    router.put("/:bId",multer,blog.update);
   
     // Delete a blog with id
     router.delete("/:bId", blog.delete);
@@ -24,5 +23,5 @@ module.exports = app => {
     // get cid from category
     router.get("/catagory/:cId", blog.category)
     
-    app.use('/blog', router);
+    app.use('/app/blog', router);
 };

@@ -4,7 +4,7 @@ module.exports = app => {
     var router = require("express").Router();
   
     // Create a new Tutorial
-    router.post("/login", user.create);  //one error app exit it self
+    router.post("/login", user.create);
   
     // Retrieve all Tutorials
     router.get("/", user.findAll);
@@ -20,5 +20,3 @@ module.exports = app => {
   
     app.use('/api/user', router);
 };
-
-// user api all done and also checked all working

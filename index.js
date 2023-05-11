@@ -14,11 +14,11 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(express.json()); 
+app.use(bodyParser.json()); 
 
 // parse requests of content-type - application/x-www-form-urlencoded
 // app.use(bodyParser.json())
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.get("/", (req, res) => {

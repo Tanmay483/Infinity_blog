@@ -1,17 +1,4 @@
-const multer = require('multer')
-
-const upload = multer({
-    storage: multer.diskStorage({
-        destination: function (req, file, cb) {
-            cb(null, './app/Images/description_img')
-        },
-        filename: function (req, file, cb) {
-            cb(null, file.filename + "-" + Date.now() + '.jpg', '.png', '.gif', '.jpeg')
-        }
-    })
-}).single('description_img')
-
-
+const upload = require('../imageController/description.imageController')
 
 module.exports = app => {
     const Description = require('../controller/description.controller');
