@@ -15,8 +15,8 @@ exports.create = (req, res) => {
      iParentCatID : req.body.iParentCatID,
      vBlogTitle: req.body.vBlogTitle,
      vBlogDescription : req.body.vBlogDescription,
-     vBlogFeatureImage : req.file.filename,
-     vBlogThumbnailImage : req.body.vBlogThumbnailImage,
+     vBlogFeatureImage : req.files[0],
+     vBlogThumbnailImage : req.files[1],
      tCreatedDate : req.body.tCreatedDate,
      tUpdatedDate : req.body.tUpdatedDate,
   });

@@ -1,4 +1,5 @@
 const multer = require('../imageController/blog.imageController')
+const conn = require('../config/db')
 
 module.exports = app => {
     const blog = require('../controller/blog.controller');
@@ -15,7 +16,25 @@ module.exports = app => {
     router.get("/bId/:bId",blog.findId)
   
     // Update a blog with id
-    router.put("/:bId",multer,blog.update);
+    router.put("/:bId", multer, (req, res) => {
+
+        let bId = req.params.bId
+        const cId = req.body.cId
+        const iParentCatID = req.body.iParentCatID;
+        const vBlogTitle = req.body.vBlogTitle;
+        const vBlogDescription = req.body.vBlogDescription;
+        const filename = req.file.filename;
+        const tCreatedDate = req.body.tCreatedDate; 
+        const tUpdatedDate = req.body.tUpdatedDate;
+        
+        var sql = "UPDATE `tbl_blogs` SET `cId`='" + cId + "',`iParentCatID`='" + iParentCatID + "',`vBlogTitle`= '" + vBlogTitle + "',`vBlogDescription`='" + vBlogDescription + "',`vBlogFeatureImage`='"+filename+"',`tCreatedDate`='" + tCreatedDate + "',`tUpdatedDate` = '"+tUpdatedDate+"'WHERE  bId = '" + bId + "' "
+        conn.query(sql, (err, data) => {
+            if (err) throw err;
+            console.log("blog change sucessfully")
+            console.log(req.body)
+        });
+        res.send("blog change sucessfully")
+    })
   
     // Delete a blog with id
     router.delete("/:bId", blog.delete);

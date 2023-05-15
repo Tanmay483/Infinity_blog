@@ -13,8 +13,8 @@ exports.create = (req, res) => {
   // Create a Tutorial
   const system = new System({
     vProjectName:req.body.vProjectName,
-    vProjectLogo: req.body.vProjectLogo,
-    vProjectLoginPageBgImage: req.body.vProjectLoginPageBgImage,
+    vProjectLogo: req.files[0],
+    vProjectLoginPageBgImage: req.files[1],
     vEmail: req.body.vEmail,
     vMobileNumber:req.body.vMobileNumber,
     vAddress: req.body.vAddress,

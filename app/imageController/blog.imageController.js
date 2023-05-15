@@ -9,6 +9,6 @@ const upload = multer({
             cb(null, file.fieldname +"-"+ Date.now()+ '.png','.jpg','.gif','.jpeg')
         }
     })
-}).single('b_img')
+}).array('b_img',2)
 
 module.exports = upload

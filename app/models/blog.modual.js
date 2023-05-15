@@ -7,8 +7,8 @@ const Blog = function (blog) {
     this.iParentCatID = blog.iParentCatID;
     this.vBlogTitle = blog.vBlogTitle;
     this.vBlogDescription = blog.vBlogDescription;
-    this.vBlogFeatureImage = blog.vBlogFeatureImage;
-    this.vBlogThumbnailImage = blog.vBlogThumbnailImage;
+    this.vBlogFeatureImage = blog.vBlogFeatureImage.filename;
+    this.vBlogThumbnailImage = blog.vBlogThumbnailImage.filename;
     this.tCreatedDate = blog.tCreatedDate;
     this.tUpdatedDate = blog.tUpdatedDate;
 };
@@ -25,7 +25,8 @@ Blog.create = (newblog, result) => {
 
         console.log("created blog: ", { bId: res.insertbId, ...newblog });
         result(null, { bId: res.insertbId, ...newblog });
-        console.log(newblog.vBlogFeatureImage)
+        // console.log(newblog.vBlogFeatureImage)
+        console.log(newblog.vBlogFeatureImage.filename)
     });
 };
 
