@@ -23,11 +23,12 @@ module.exports = app => {
         const iParentCatID = req.body.iParentCatID;
         const vBlogTitle = req.body.vBlogTitle;
         const vBlogDescription = req.body.vBlogDescription;
-        const filename = req.file.filename;
+        const vBlogFeatureImage = req.files[0];
+        const vBlogThumbnailImage = req.files[1];
         const tCreatedDate = req.body.tCreatedDate; 
         const tUpdatedDate = req.body.tUpdatedDate;
         
-        var sql = "UPDATE `tbl_blogs` SET `cId`='" + cId + "',`iParentCatID`='" + iParentCatID + "',`vBlogTitle`= '" + vBlogTitle + "',`vBlogDescription`='" + vBlogDescription + "',`vBlogFeatureImage`='"+filename+"',`tCreatedDate`='" + tCreatedDate + "',`tUpdatedDate` = '"+tUpdatedDate+"'WHERE  bId = '" + bId + "' "
+        var sql = "UPDATE `tbl_blogs` SET `cId`='" + cId + "',`iParentCatID`='" + iParentCatID + "',`vBlogTitle`= '" + vBlogTitle + "',`vBlogDescription`='" + vBlogDescription + "',`vBlogFeatureImage`='"+vBlogFeatureImage+"',`vBlogThumbnailImage`='"+vBlogThumbnailImage+"',`tCreatedDate`='" + tCreatedDate + "',`tUpdatedDate` = '"+tUpdatedDate+"'WHERE  bId = '" + bId + "' "
         conn.query(sql, (err, data) => {
             if (err) throw err;
             console.log("blog change sucessfully")

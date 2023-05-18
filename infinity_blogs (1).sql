@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2023 at 02:30 PM
+-- Generation Time: May 18, 2023 at 03:50 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -41,9 +41,10 @@ CREATE TABLE `tbl_additional_blogs_desc` (
 --
 
 INSERT INTO `tbl_additional_blogs_desc` (`abId`, `bId`, `vBlogDescription`, `vBlogImage`, `tCreatedDate`, `tUpdatedDate`) VALUES
-(1, 52, 'hello world', 'img-1682421329918.jpg', '2023-05-06 00:00:00', '2022-06-09 00:00:00'),
-(2, 52, 'hello duniya', 'img-1682584898091.jpg', '2023-05-06 00:00:00', '0000-00-00 00:00:00'),
-(4, 53, 'hello', 'img-1682584869161.jpg', '2023-05-06 00:00:00', '2022-06-09 00:00:00');
+(1, 5, 'hy there', 'description_img-1684413208552.jpg', '2023-05-06 00:00:00', '2021-06-21 00:00:00'),
+(2, 5, 'hy there', 'description_img-1684413222799.jpg', '2023-05-06 00:00:00', '2021-06-21 00:00:00'),
+(3, 5, 'hy there', 'description_img-1684413223662.jpg', '2023-05-06 00:00:00', '2021-06-21 00:00:00'),
+(4, 6, 'hello world', 'description_img-1684414110803.jpg', '2019-06-27 00:00:00', '2020-05-02 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -54,7 +55,7 @@ INSERT INTO `tbl_additional_blogs_desc` (`abId`, `bId`, `vBlogDescription`, `vBl
 CREATE TABLE `tbl_blogs` (
   `bId` int(11) NOT NULL,
   `cId` int(11) NOT NULL,
-  `iParentCatID` int(11) NOT NULL,
+  `iParentCatID` int(50) NOT NULL,
   `vBlogTitle` varchar(100) NOT NULL,
   `vBlogDescription` varchar(1000) NOT NULL,
   `vBlogFeatureImage` varchar(50) NOT NULL,
@@ -68,13 +69,10 @@ CREATE TABLE `tbl_blogs` (
 --
 
 INSERT INTO `tbl_blogs` (`bId`, `cId`, `iParentCatID`, `vBlogTitle`, `vBlogDescription`, `vBlogFeatureImage`, `vBlogThumbnailImage`, `tCreatedDate`, `tUpdatedDate`) VALUES
-(52, 1, 1, 'restful API', 'restful api with help of node js', 'b_img-1682226396198.png', 't_img-1682228532657.png', '2023-02-18 00:00:00', '2023-03-26 00:00:00'),
-(53, 1, 1, 'restful API', 'restful api with help of node js', 'b_img-1682226397043.png', 't_img-1682228538300.png', '2023-02-18 00:00:00', '2023-03-26 00:00:00'),
-(54, 1, 1, 'restful API', 'restful api with help of node js', 'b_img-1682226398403.png', '', '2023-02-18 00:00:00', '2023-03-26 00:00:00'),
-(55, 1, 1, 'restful API', 'restful api with help of node js', 'b_img-1682227477568.png', '', '2023-02-18 00:00:00', '2023-03-26 00:00:00'),
-(56, 1, 1, 'restful API', 'restful api with help of node js', 'b_img-1682227935470.png', '', '2023-02-18 00:00:00', '2023-03-26 00:00:00'),
-(57, 1, 1, 'restful API', 'restful api with help of node js', 'b_img-1682229043142.png', 't_img-1682229056898.png', '2023-02-18 00:00:00', '2023-03-26 00:00:00'),
-(58, 2, 3, 'css', 'hello world part 2', 'b_img-1682235523685.png', 't_img-1682230549246.png', '2023-02-18 00:00:00', '2023-03-26 00:00:00');
+(1, 2, 1, 'hello world', 'hi', 'b_img-1684416829187.png', 'b_img-1684416829195.png', '2021-05-06 00:00:00', '2023-05-18 00:00:00'),
+(2, 3, 1, 'hello world', 'hi', 'b_img-1684416835317.png', 'b_img-1684416835321.png', '2021-05-06 00:00:00', '2023-05-18 00:00:00'),
+(4, 2, 1, 'hello world', 'hi', 'b_img-1684416836937.png', 'b_img-1684416836942.png', '2021-05-06 00:00:00', '2023-05-18 00:00:00'),
+(5, 5, 3, 'java', 'variables in java', '[object Object]', '[object Object]', '2021-05-06 00:00:00', '2023-06-30 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -97,14 +95,11 @@ CREATE TABLE `tbl_categories` (
 --
 
 INSERT INTO `tbl_categories` (`cId`, `vCategoryName`, `vCategorySlug`, `vCategoryImage`, `iParentCatID`, `tCreatedDate`, `tUpdatedDate`) VALUES
-(5, 'react', 'hello world', 'img-1682132762236.png', 0, '2023-05-31 00:00:00', '2023-06-28 00:00:00'),
-(6, 'html', 'hello ', 'img-1682136400967.png', 0, '2023-06-08 00:00:00', '2023-09-17 00:00:00'),
-(7, 'Redux', 'Redux', 'img-1682136400967.png', 5, '2023-06-08 00:00:00', '2023-09-17 00:00:00'),
-(8, 'Redux JS', 'Redux', 'img-1682136400967.png', 5, '2023-06-08 00:00:00', '2023-09-17 00:00:00'),
-(9, 'react', 'hello world', 'img-1682139791245.png', 0, '2023-05-31 00:00:00', '2023-06-28 00:00:00'),
-(10, 'JavaScript', 'bom', 'img-1682143600724.png', 6, '2023-06-08 00:00:00', '2023-09-17 00:00:00'),
-(11, 'html', 'hello world', 'img-1682140653164.png', 6, '2023-06-08 00:00:00', '2023-09-17 00:00:00'),
-(12, 'css', 'hello world', 'img-1682140800916.png', 0, '2023-05-31 00:00:00', '2023-06-28 00:00:00');
+(1, 'javascript', 'pyramid of doom', 'cat_img-1684415017050.png', 2, '2019-11-06 00:00:00', '2020-05-09 00:00:00'),
+(2, 'java', 'parent class in java', 'cat_img-1684414507843.png', 0, '2021-05-03 00:00:00', '2023-05-18 00:00:00'),
+(3, 'java', 'parent class in java', 'cat_img-1684414508571.png', 0, '2021-05-03 00:00:00', '2023-05-18 00:00:00'),
+(4, 'java', 'parent class in java', 'cat_img-1684414509256.png', 2, '2021-05-03 00:00:00', '2023-05-18 00:00:00'),
+(5, 'java', 'parent class in java', 'cat_img-1684414509944.png', 0, '2021-05-03 00:00:00', '2023-05-18 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -128,9 +123,13 @@ CREATE TABLE `tbl_system` (
 --
 
 INSERT INTO `tbl_system` (`sId`, `vProjectName`, `vProjectLogo`, `vProjectLoginPageBgImage`, `vEmail`, `vMobileNumber`, `vAddress`, `tCreatedDate`) VALUES
-(1, 'sptify clone', 'logo-1682342464634.png', 'bg-1682341684676.png', 'deg@gmail.com', '8905691100', 'hello', '0000-00-00 00:00:00'),
-(3, 'hello world', 'logo-1682342534985.png', 'bg-1682342551045.png', 'abc@gmail.com', '135467984364', 'hi', '2023-04-03 00:00:00'),
-(4, 'hello world', 'logo-1682679641873.png', 'bg-1682679660205.png', 'abc@gmail.com', '135467984364', 'hi', '2023-04-03 00:00:00');
+(1, 'timepass', 'logo-1684134538541.png', 'logo-1684134538542.png', 'abc@gmail.com', '1123845631', 'somewhere on earth', '2023-05-15 00:00:00'),
+(2, 'timepass', 'logo-1684134560579.png', 'logo-1684134560579.png', 'abc@gmail.com', '1123845631', 'somewhere on earth', '2023-05-15 00:00:00'),
+(3, 'timepass', 'logo-1684134561314.png', 'logo-1684134561314.png', 'abc@gmail.com', '1123845631', 'somewhere on earth', '2023-05-15 00:00:00'),
+(4, 'timepass', 'logo-1684134562061.png', 'logo-1684134562061.png', 'abc@gmail.com', '1123845631', 'somewhere on earth', '2023-05-15 00:00:00'),
+(6, 'timepass', 'logo-1684134688949.png', 'logo-1684134688950.png', 'abc@gmail.com', '1123845631', 'somewhere on earth', '2023-05-15 00:00:00'),
+(7, 'timepass', 'logo-1684411458456.png', 'logo-1684411458457.png', 'abc@gmail.com', '1123845631', 'somewhere on earth', '2023-05-15 00:00:00'),
+(8, 'timepass', 'logo-1684412614904.png', 'logo-1684412614907.png', 'abc@gmail.com', '1123845631', 'somewhere on earth', '2023-05-15 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -155,13 +154,10 @@ CREATE TABLE `tbl_users` (
 --
 
 INSERT INTO `tbl_users` (`uId`, `vUserName`, `vFirstName`, `vLastName`, `vEmailId`, `vPassword`, `vMobileNumber`, `tCreatedDate`, `tUpdatedDate`) VALUES
-(1, 'admin124', 'tanmay', 'makwana', 'tanamy@gmail.com', 'admin456', '8156230479', '2023-02-26 00:00:00', '2023-03-24 00:00:00'),
-(4, 'Admin', 'satyam', 'makwana', 'satyam@gmail.com', 'test567', '8156230479', '2023-02-26 00:00:00', '2023-03-24 00:00:00'),
-(5, 'admin', 'dev', 'makwana', 'dev@gmail.com', 'admin123', '8156230479', '2023-02-26 00:00:00', '2023-03-24 00:00:00'),
-(6, 'Admin', 'naman', 'makwana', 'naman@gmail.com', 'abc1234', '8156230479', '2023-02-26 00:00:00', '2023-03-24 00:00:00'),
-(31, 'admin', 'hello', 'world', 'abc@123', 'admin123', '123456778', '2023-12-02 00:00:00', '2022-05-06 00:00:00'),
-(32, 'admin', 'hello', 'world', 'abc@123', 'admin123', '123456778', '2023-12-02 00:00:00', '2022-05-06 00:00:00'),
-(33, 'admin', 'Tanmay', 'makwana', 'tsnmsy@gmail.com', 'SDggeawe', '143563758', '2023-12-02 00:00:00', '2022-05-06 00:00:00');
+(1, 'admin', 'Tanmay', 'Makwana', 'abc@gmail.com', 'admin123', '1230456987', '2023-05-15 00:00:00', '2024-05-15 00:00:00'),
+(3, 'admin', 'Naman', 'Makwana', 'abc@gmail.com', 'admin123', '1230456987', '2023-05-15 00:00:00', '2024-05-15 00:00:00'),
+(4, 'admin', 'Satyam', 'Makwana', 'abc@gmail.com', 'admin123', '1230456987', '2023-05-15 00:00:00', '2024-05-15 00:00:00'),
+(5, 'pqr', 'abc', 'def', 'ghi', 'jkl', '684632321', '2023-05-03 00:00:00', '2025-06-06 00:00:00');
 
 --
 -- Indexes for dumped tables
@@ -205,31 +201,31 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_additional_blogs_desc`
 --
 ALTER TABLE `tbl_additional_blogs_desc`
-  MODIFY `abId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `abId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_blogs`
 --
 ALTER TABLE `tbl_blogs`
-  MODIFY `bId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `bId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_categories`
 --
 ALTER TABLE `tbl_categories`
-  MODIFY `cId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `cId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_system`
 --
 ALTER TABLE `tbl_system`
-  MODIFY `sId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `sId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `uId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `uId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

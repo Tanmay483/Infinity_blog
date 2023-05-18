@@ -1,4 +1,5 @@
 const upload = require('../imageController/description.imageController')
+const conn = require('../config/db')
 
 module.exports = app => {
     const Description = require('../controller/description.controller');
@@ -15,7 +16,22 @@ module.exports = app => {
     router.get("/:abId", Description.findOne);
 
     // Update a Description with id
-    router.put("/:abId", upload, Description.update);
+    router.put('/:abId', upload, (req, res) => {
+        let abId = req.params.abId
+        const bId = req.body.bId;
+        const vBlogDescription = req.body.vBlogDescription;
+        const vBlogImage = req.file.filename;
+        const tCreatedDate = req.body.tCreatedDate;
+        const tUpdatedDate = req.body.tUpdatedDate;
+    
+        var sql = "UPDATE `tbl_additional_blogs_desc` SET `bId`='" + bId + "',`vBlogDescription`='" + vBlogDescription + "', `vBlogImage`='" + vBlogImage + "',`tCreatedDate`='" + tCreatedDate + "',`tUpdatedDate`='" + tUpdatedDate + "' WHERE `abId` = '" + abId + "' ";
+    
+        conn.query(sql, (err, data) => {
+            if (err) throw err;
+            console.log('Description cahnge scessfully')
+        })
+        res.send("Description cahnge scessfully")
+    })
 
     // Delete a Description with id
     router.delete("/:abId", Description.delete);

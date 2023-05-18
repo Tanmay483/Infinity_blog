@@ -1,4 +1,5 @@
 const upload = require('../imageController/catageory.image.controller')
+const conn = require('../config/db')
 module.exports = app => {
     const category = require('../controller/category.controller');
   
@@ -14,8 +15,24 @@ module.exports = app => {
     router.get("/iParentCatID/:iParentCatID",category.findParentId)  
   
     // Update a Tutorial with id
-    router.put("/:cId",upload, category.update)
-  
+    router.put("/update/:cId", upload, (req, res) => {
+
+        let cId = req.params.cId
+        const vCategoryName = req.body.vCategoryName;
+        const vCategorySlug = req.body.vCategorySlug;
+        const iParentCatID = req.body.iParentCatID
+        const tCreatedDate = req.body.tCreatedDate
+        const tUpdatedDate = req.body.tUpdatedDate
+        const filename = req.file.filename;
+    
+        var sql = "UPDATE `tbl_categories` SET `vCategoryName`=('" + vCategoryName + "'),`vCategorySlug`=('" + vCategorySlug + "'),`vCategoryImage`= ('" + filename + "'),`iParentCatID` = ('" + iParentCatID + "'),`tCreatedDate`=('" + tCreatedDate + "'),`tUpdatedDate`=('" + tUpdatedDate + "')WHERE  cId = ('" + cId + "')"
+        conn.query(sql, (err, data) => {
+            if (err) throw err;
+            console.log("category change sucessfully")
+        });
+        res.send("category change sucessfully")
+    })
+    
     // Delete a Tutorial with id
     router.delete("/:cId", category.delete);  
   

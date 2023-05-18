@@ -27,8 +27,8 @@ Description.create = (newdescription, result) => {
 
 // GET by ID
 
-Description.findById = (bId, result) => {
-  sql.query(`SELECT * FROM tbl_additional_blogs_desc WHERE bId = ${bId}`, (err, res) => {
+Description.findById = (abId, result) => {
+  sql.query(`SELECT * FROM tbl_additional_blogs_desc WHERE abId = ${abId}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
