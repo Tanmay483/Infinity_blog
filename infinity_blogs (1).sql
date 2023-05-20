@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2023 at 03:50 PM
+-- Generation Time: May 20, 2023 at 05:33 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -69,10 +69,15 @@ CREATE TABLE `tbl_blogs` (
 --
 
 INSERT INTO `tbl_blogs` (`bId`, `cId`, `iParentCatID`, `vBlogTitle`, `vBlogDescription`, `vBlogFeatureImage`, `vBlogThumbnailImage`, `tCreatedDate`, `tUpdatedDate`) VALUES
-(1, 2, 1, 'hello world', 'hi', 'b_img-1684416829187.png', 'b_img-1684416829195.png', '2021-05-06 00:00:00', '2023-05-18 00:00:00'),
+(1, 5, 3, 'java script', 'variables in java', 'b_img-1684511025299.png', 'b_img-1684511025300.png', '2021-05-06 00:00:00', '2023-06-30 00:00:00'),
 (2, 3, 1, 'hello world', 'hi', 'b_img-1684416835317.png', 'b_img-1684416835321.png', '2021-05-06 00:00:00', '2023-05-18 00:00:00'),
-(4, 2, 1, 'hello world', 'hi', 'b_img-1684416836937.png', 'b_img-1684416836942.png', '2021-05-06 00:00:00', '2023-05-18 00:00:00'),
-(5, 5, 3, 'java', 'variables in java', '[object Object]', '[object Object]', '2021-05-06 00:00:00', '2023-06-30 00:00:00');
+(4, 5, 3, 'java script', 'variables in java', 'b_img-1684553540112.png', 'b_img-1684553540115.png', '2021-05-06 00:00:00', '2023-06-30 00:00:00'),
+(5, 5, 3, 'java script', 'variables in java', '[object Object]', '[object Object]', '2021-05-06 00:00:00', '2023-06-30 00:00:00'),
+(6, 5, 3, 'java script', 'variables in java', 'b_img-1684509963545.png', 'b_img-1684509963546.png', '2021-05-06 00:00:00', '2023-06-30 00:00:00'),
+(7, 2, 1, 'hello world', 'hi', 'b_img-1684508906526.png', 'b_img-1684508906527.png', '2021-05-06 00:00:00', '2023-05-18 00:00:00'),
+(8, 2, 1, 'hello world', 'hi', 'b_img-1684509444061.png', 'b_img-1684509444061.png', '2021-05-06 00:00:00', '2023-05-18 00:00:00'),
+(9, 2, 1, 'hello world', 'hi', 'b_img-1684509447837.png', 'b_img-1684509447838.png', '2021-05-06 00:00:00', '2023-05-18 00:00:00'),
+(10, 2, 1, 'hello world', 'hi', 'b_img-1684509461819.png', 'b_img-1684509461819.png', '2021-05-06 00:00:00', '2023-05-18 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -123,13 +128,15 @@ CREATE TABLE `tbl_system` (
 --
 
 INSERT INTO `tbl_system` (`sId`, `vProjectName`, `vProjectLogo`, `vProjectLoginPageBgImage`, `vEmail`, `vMobileNumber`, `vAddress`, `tCreatedDate`) VALUES
-(1, 'timepass', 'logo-1684134538541.png', 'logo-1684134538542.png', 'abc@gmail.com', '1123845631', 'somewhere on earth', '2023-05-15 00:00:00'),
+(1, 'hello', 'logo-1684510952856.png', 'logo-1684510952857.png', 'test@gmail.com', '3214596785', 'somewhere in india', '2023-05-15 00:00:00'),
 (2, 'timepass', 'logo-1684134560579.png', 'logo-1684134560579.png', 'abc@gmail.com', '1123845631', 'somewhere on earth', '2023-05-15 00:00:00'),
 (3, 'timepass', 'logo-1684134561314.png', 'logo-1684134561314.png', 'abc@gmail.com', '1123845631', 'somewhere on earth', '2023-05-15 00:00:00'),
 (4, 'timepass', 'logo-1684134562061.png', 'logo-1684134562061.png', 'abc@gmail.com', '1123845631', 'somewhere on earth', '2023-05-15 00:00:00'),
-(6, 'timepass', 'logo-1684134688949.png', 'logo-1684134688950.png', 'abc@gmail.com', '1123845631', 'somewhere on earth', '2023-05-15 00:00:00'),
+(6, 'helloWorld', 'logo-1684510760370.png', 'logo-1684510760371.png', 'test@gmail.com', '3214596785', 'somewhere in india', '2023-05-15 00:00:00'),
 (7, 'timepass', 'logo-1684411458456.png', 'logo-1684411458457.png', 'abc@gmail.com', '1123845631', 'somewhere on earth', '2023-05-15 00:00:00'),
-(8, 'timepass', 'logo-1684412614904.png', 'logo-1684412614907.png', 'abc@gmail.com', '1123845631', 'somewhere on earth', '2023-05-15 00:00:00');
+(8, 'timepass', 'logo-1684412614904.png', 'logo-1684412614907.png', 'abc@gmail.com', '1123845631', 'somewhere on earth', '2023-05-15 00:00:00'),
+(9, 'timepass', 'logo-1684510325046.png', 'logo-1684510325049.png', 'abc@gmail.com', '1123845631', 'somewhere on earth', '2023-05-15 00:00:00'),
+(10, 'timepass', 'logo-1684510347551.png', 'logo-1684510347551.png', 'abc@gmail.com', '1123845631', 'somewhere on earth', '2023-05-15 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -207,7 +214,7 @@ ALTER TABLE `tbl_additional_blogs_desc`
 -- AUTO_INCREMENT for table `tbl_blogs`
 --
 ALTER TABLE `tbl_blogs`
-  MODIFY `bId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `bId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `tbl_categories`
@@ -219,7 +226,7 @@ ALTER TABLE `tbl_categories`
 -- AUTO_INCREMENT for table `tbl_system`
 --
 ALTER TABLE `tbl_system`
-  MODIFY `sId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `sId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`
