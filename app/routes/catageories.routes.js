@@ -23,7 +23,7 @@ module.exports = app => {
         const iParentCatID = req.body.iParentCatID
         const tCreatedDate = req.body.tCreatedDate
         const tUpdatedDate = req.body.tUpdatedDate
-        const filename = req.file.filename;
+        const filename = req.file.path.replace(/\\/g, "\\\\");
     
         var sql = "UPDATE `tbl_categories` SET `vCategoryName`=('" + vCategoryName + "'),`vCategorySlug`=('" + vCategorySlug + "'),`vCategoryImage`= ('" + filename + "'),`iParentCatID` = ('" + iParentCatID + "'),`tCreatedDate`=('" + tCreatedDate + "'),`tUpdatedDate`=('" + tUpdatedDate + "')WHERE  cId = ('" + cId + "')"
         conn.query(sql, (err, data) => {

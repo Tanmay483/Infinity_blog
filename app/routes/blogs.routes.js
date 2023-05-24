@@ -23,8 +23,8 @@ module.exports = app => {
         const iParentCatID = req.body.iParentCatID;
         const vBlogTitle = req.body.vBlogTitle;
         const vBlogDescription = req.body.vBlogDescription;
-        const vBlogFeatureImage = req.files[0].filename;
-        const vBlogThumbnailImage = req.files[1].filename;
+        const vBlogFeatureImage = req.files[0].path.replace(/\\/g, "\\\\");;
+        const vBlogThumbnailImage = req.files[1].path.replace(/\\/g, "\\\\");;
         const tCreatedDate = req.body.tCreatedDate; 
         const tUpdatedDate = req.body.tUpdatedDate;
         

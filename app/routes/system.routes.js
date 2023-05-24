@@ -22,8 +22,8 @@ module.exports = app => {
         const vEmail = req.body.vEmail;
         const vMobileNumber = req.body.vMobileNumber;
         const vAddress = req.body.vAddress;
-        const vProjectLogo = req.files[0].filename;
-        const vProjectLoginPageBgImage = req.files[1].filename;
+        const vProjectLogo = req.files[0].path.replace(/\\/g, "\\\\");
+        const vProjectLoginPageBgImage = req.files[1].path.replace(/\\/g, "\\\\");
         const tCreatedDate = req.body.tCreatedDate; 
         
         var sql = "UPDATE `tbl_system` SET `vProjectName`='" + vProjectName + "',`vProjectLogo`='" + vProjectLogo + "',`vProjectLoginPageBgImage` = '"+vProjectLoginPageBgImage+"' ,`vEmail`= '" + vEmail + "',`vMobileNumber`='" + vMobileNumber + "',`vAddress`='"+vAddress+"',`tCreatedDate`='" + tCreatedDate + "'WHERE  sId = '" + sId + "' "
