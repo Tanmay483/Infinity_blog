@@ -14,7 +14,7 @@ exports.create = (req, res) => {
   const description = new Description({
     bId	:req.body.bId,
     vBlogDescription: req.body.vBlogDescription,
-    vBlogImage: req.file.filename,
+    vBlogImage: req.file.path,
     tCreatedDate: req.body.tCreatedDate,
     tUpdatedDate:req.body.tUpdatedDate,
   });

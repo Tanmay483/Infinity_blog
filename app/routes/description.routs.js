@@ -1,5 +1,6 @@
 const upload = require('../imageController/description.imageController')
-const conn = require('../config/db')
+const conn = require('../config/db');
+const path = require('path');
 
 module.exports = app => {
     const Description = require('../controller/description.controller');
@@ -20,15 +21,16 @@ module.exports = app => {
         let abId = req.params.abId
         const bId = req.body.bId;
         const vBlogDescription = req.body.vBlogDescription;
-        const vBlogImage = req.file.filename;
+        const vBlogImage = req.file.path.replace(/\\/g, "\\\\");
         const tCreatedDate = req.body.tCreatedDate;
         const tUpdatedDate = req.body.tUpdatedDate;
-    
-        var sql = "UPDATE `tbl_additional_blogs_desc` SET `bId`='" + bId + "',`vBlogDescription`='" + vBlogDescription + "', `vBlogImage`='" + vBlogImage + "',`tCreatedDate`='" + tCreatedDate + "',`tUpdatedDate`='" + tUpdatedDate + "' WHERE `abId` = '" + abId + "' ";
-    
+
+      const sql = "UPDATE `tbl_additional_blogs_desc` SET `bId`='" + bId + "', `vBlogDescription`='" + vBlogDescription + "', `vBlogImage`='" + vBlogImage + "', `tCreatedDate`='" + tCreatedDate + "', `tUpdatedDate`='" + tUpdatedDate + "' WHERE `abId`='" + abId + "'";        ;
+        
         conn.query(sql, (err, data) => {
             if (err) throw err;
             console.log('Description cahnge scessfully')
+            console.log(vBlogImage)
         })
         res.send("Description cahnge scessfully")
     })

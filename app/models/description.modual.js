@@ -19,11 +19,12 @@ Description.create = (newdescription, result) => {
       result(err, null);
       return;
     }
-
+    
     console.log("created tutorial: ", { abId: res.insertabId, ...newdescription });
     result(null, { abId: res.insertabId, ...newdescription });
   });
 };
+// console.log(vBlogImage)
 
 // GET by ID
 

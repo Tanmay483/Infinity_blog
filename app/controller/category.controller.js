@@ -14,7 +14,7 @@ exports.create = (req, res) => {
      vCategoryName : req.body.vCategoryName,
      vCategorySlug : req.body.vCategorySlug,
      iParentCatID : req.body.iParentCatID,
-     vCategoryImage : req.file.filename,
+     vCategoryImage : req.file.path,
      tCreatedDate : req.body.tCreatedDate,
      tUpdatedDate : req.body.tUpdatedDate,
   });
