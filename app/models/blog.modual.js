@@ -2,7 +2,7 @@ const sql = require('../config/db');
 
 // constructor
 const Blog = function (blog) {
-
+    this.bId = blog.bId
     this.cId = blog.cId;
     this.iParentCatID = blog.iParentCatID;
     this.vBlogTitle = blog.vBlogTitle;

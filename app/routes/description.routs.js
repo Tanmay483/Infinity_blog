@@ -30,7 +30,6 @@ module.exports = app => {
         conn.query(sql, (err, data) => {
             if (err) throw err;
             console.log('Description cahnge scessfully')
-            console.log(vBlogImage)
         })
         res.send("Description cahnge scessfully")
     })
