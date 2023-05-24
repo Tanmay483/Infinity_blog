@@ -11,7 +11,6 @@ exports.create = (req, res) => {
 
   // Create a Tutorial
   const blog = new Blog({
-     bId : req.body.bId,
      cId : req.body.cId,
      iParentCatID : req.body.iParentCatID,
      vBlogTitle: req.body.vBlogTitle,

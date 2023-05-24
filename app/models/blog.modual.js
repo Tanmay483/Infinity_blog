@@ -2,7 +2,7 @@ const sql = require('../config/db');
 
 // constructor
 const Blog = function (blog) {
-    this.bId = blog.bId
+    
     this.cId = blog.cId;
     this.iParentCatID = blog.iParentCatID;
     this.vBlogTitle = blog.vBlogTitle;
@@ -14,7 +14,6 @@ const Blog = function (blog) {
 };
 
 // POST 
-
 Blog.create = (newblog, result) => {
     sql.query("INSERT INTO tbl_blogs SET ?", newblog, (err, res) => {
         if (err) {
@@ -23,8 +22,8 @@ Blog.create = (newblog, result) => {
             return;
         }
 
-        console.log("created blog: ", { bId: res.insertbId, ...newblog });
-        result(null, { bId: res.insertbId, ...newblog });
+        console.log("created blog: ", { bId: res.insertId, ...newblog });
+        result(null, { bId: res.insertId, ...newblog });
     });
 };
 
