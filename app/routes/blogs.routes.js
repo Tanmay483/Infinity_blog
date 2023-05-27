@@ -12,8 +12,8 @@ module.exports = (app) => {
     // Retrieve all blog
     router.get('/', blog.findAll);
 
-    //Retrive blog by id
-    router.get('/bId/:bId', blog.findId);
+    //Retrive blog by title
+    router.get('/title/:vBlogTitleSlug', blog.findId);
 
     // Update a blog with id
     router.put('/:bId', multer, (req, res) => {
@@ -21,11 +21,13 @@ module.exports = (app) => {
         const cId = req.body.cId;
         const iParentCatID = req.body.iParentCatID;
         const vBlogTitle = req.body.vBlogTitle;
+        const vBlogTitleSlug = req.body.vBlogTitleSlug;
         const vBlogDescription = req.body.vBlogDescription;
         const vBlogFeatureImage = 'hello';
         const vBlogThumbnailImage = 'hello';
         const tCreatedDate = req.body.tCreatedDate;
         const tUpdatedDate = req.body.tUpdatedDate;
+
 
         var sql =
             "UPDATE `tbl_blogs` SET `cId`='" +
@@ -34,6 +36,8 @@ module.exports = (app) => {
             iParentCatID +
             "',`vBlogTitle`= '" +
             vBlogTitle +
+            "',`vBlogTitleSlug`='"+
+            vBlogTitleSlug+
             "',`vBlogDescription`='" +
             vBlogDescription +
             "',`vBlogFeatureImage`='" +
@@ -63,3 +67,4 @@ module.exports = (app) => {
 
     app.use('/app/blog', router);
 };
+// get blog by title

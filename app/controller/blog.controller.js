@@ -14,6 +14,7 @@ exports.create = (req, res) => {
         cId: req.body.cId,
         iParentCatID: req.body.iParentCatID,
         vBlogTitle: req.body.vBlogTitle,
+        vBlogTitleSlug: req.body.vBlogTitleSlug,
         vBlogDescription: req.body.vBlogDescription,
         vBlogFeatureImage: 'hello',
         vBlogThumbnailImage: 'hello',
@@ -49,18 +50,18 @@ exports.findAll = (req, res) => {
     });
 };
 
-//GET sub category
+//GET by blog title
 
 exports.findId = (req, res) => {
-    Blog.findId(req.params.bId, (err, data) => {
+    Blog.findId(req.params.vBlogTitleSlug, (err, data) => {
         if (err) {
             if (err.kind === 'not_found') {
                 res.status(404).send({
-                    message: `Not found blog with id ${req.params.bId}.`,
+                    message: `Not found blog with Title ${req.params.vBlogTitleSlug}.`,
                 });
             } else {
                 res.status(500).send({
-                    message: 'Error retrieving blog with Id ' + req.params.bId,
+                    message: 'Error retrieving blog with Title ' + req.params.vBlogTitleSlug,
                 });
             }
         } else res.send(data);

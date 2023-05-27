@@ -14,7 +14,7 @@ module.exports = app => {
     router.get("/", Description.findAll);
 
     // Retrieve a single Description with id
-    router.get("/:abId", Description.findOne);
+    router.get("/:bId", Description.findOne);
 
     // Update a Description with id
     router.put('/:abId', upload, (req, res) => {
@@ -39,5 +39,3 @@ module.exports = app => {
 
     app.use('/app/description', router);
 };
-
-// all done

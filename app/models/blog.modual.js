@@ -5,6 +5,7 @@ const Blog = function (blog) {
     this.cId = blog.cId;
     this.iParentCatID = blog.iParentCatID;
     this.vBlogTitle = blog.vBlogTitle;
+    this.vBlogTitleSlug = blog.vBlogTitleSlug;
     this.vBlogDescription = blog.vBlogDescription;
     this.vBlogFeatureImage = 'hello';
     this.vBlogThumbnailImage = 'hello';
@@ -28,8 +29,8 @@ Blog.create = (newblog, result) => {
 
 //GET blog by id
 
-Blog.findId = (bId, result) => {
-    sql.query(`SELECT * FROM tbl_blogs WHERE bId = ${bId}`, (err, res) => {
+Blog.findId = (vBlogTitleSlug, result) => {
+    sql.query(`SELECT * FROM tbl_blogs WHERE vBlogTitleSlug = '${vBlogTitleSlug}'`, (err, res) => {
         if (err) {
             console.log('error: ', err);
             result(err, null);

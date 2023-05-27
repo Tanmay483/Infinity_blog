@@ -49,15 +49,15 @@ exports.findAll = (req, res) => {
 // GET by Id
 
 exports.findOne = (req, res) => {
-  Description.findById(req.params.abId, (err, data) => {
+  Description.findById(req.params.bId, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Not found Description with id ${req.params.abId}.`
+          message: `Not found Description with id ${req.params.bId}.`
         });
       } else {
         res.status(500).send({
-          message: "Error retrieving description with id " + req.params.abId
+          message: "Error retrieving description with id " + req.params.bId
         });
       }
     } else res.send(data);
