@@ -109,8 +109,8 @@ Blog.remove = (bId, result) => {
 
 // get cid from category
 
-Blog.category = (cId, result) => {
-    sql.query(`SELECT tbl_blogs.*,tbl_categories.vCategoryName,tbl_categories.vCategorySlug,tbl_categories.vCategoryImage,tbl_categories.iParentCatID as ParentId FROM tbl_blogs INNER JOIN tbl_categories ON tbl_blogs.cId = tbl_categories.cId WHERE tbl_blogs.cId = ${cId}`, (err, res) => {
+Blog.description = (bId, result) => {
+    sql.query(`SELECT tbl_blogs.*, tbl_additional_blogs_desc.abId,tbl_additional_blogs_desc.vBlogDescription as BlogDescription,tbl_additional_blogs_desc.vBlogImage,tbl_additional_blogs_desc.tCreatedDate as CreatedDate,tbl_additional_blogs_desc.tUpdatedDate as UpdatedDate FROM tbl_blogs INNER JOIN tbl_additional_blogs_desc ON tbl_blogs.bId = tbl_additional_blogs_desc.bId WHERE tbl_blogs.bId = ${bId}`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -124,5 +124,11 @@ Blog.category = (cId, result) => {
         result({ kind: "not_found" }, null);
     });
 };
+/*
+
+
+
+
+ */
 
 module.exports = Blog;

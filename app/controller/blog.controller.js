@@ -115,16 +115,16 @@ exports.delete = (req, res) => {
 };
 
 // get cid category
-exports.category = (req, res) => {
-  Blog.category(req.params.cId, (err, data) => {
+exports.description = (req, res) => {
+  Blog.description(req.params.bId, (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `Not found blog with id ${req.params.cId}.`
+            message: `Not found blog with id ${req.params.bId}.`
           });
         } else {
           res.status(500).send({
-            message: "Error retrieving blog with Id " + req.params.cId
+            message: "Error retrieving blog with Id " + req.params.bId
           });
         }
       } else res.send(data);
