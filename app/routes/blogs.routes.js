@@ -63,7 +63,7 @@ module.exports = (app) => {
     router.delete('/:bId', blog.delete);
 
     // get cid from category
-    router.get('/catagory/:cId', blog.category);
+    router.get('/description/:bId', blog.description);
 
     app.use('/app/blog', router);
 };
