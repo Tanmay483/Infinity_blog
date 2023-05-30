@@ -35,6 +35,9 @@ module.exports = app => {
     
     // Delete a Tutorial with id
     router.delete("/:cId", category.delete);  
-  
+
+    // get sub cstegory
+    router.get("/subcat",category.subAll)
+     
     app.use('/app/category', router);
 };

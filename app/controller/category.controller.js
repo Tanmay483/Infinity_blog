@@ -113,3 +113,16 @@ exports.delete = (req, res) => {
   });
 };
 
+// get all sub category
+exports.subAll = (req, res) => {
+  const title = req.query.title;
+
+  Category.subAll(title, (err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving Categories."
+      });
+    else res.send(data);
+  });
+};

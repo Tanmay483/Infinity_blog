@@ -107,5 +107,22 @@ Category.remove = (cId, result) => {
   });
 };
 
+// get all sub category
+
+Category.subAll = (title,result) => {
+  let query = "SELECT * FROM tbl_categories WHERE iParentCatID != 0";
+
+  sql.query(query, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    console.log("Categories: ", res);
+    result(null, res);
+  });
+};
+
 
 module.exports = Category;
