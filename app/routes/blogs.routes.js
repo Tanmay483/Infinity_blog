@@ -23,8 +23,8 @@ module.exports = (app) => {
         const vBlogTitle = req.body.vBlogTitle;
         const vBlogTitleSlug = req.body.vBlogTitleSlug;
         const vBlogDescription = req.body.vBlogDescription;
-        const vBlogFeatureImage = 'hello';
-        const vBlogThumbnailImage = 'hello';
+        const vBlogFeatureImage = '';
+        const vBlogThumbnailImage = '';
         const tCreatedDate = req.body.tCreatedDate;
         const tUpdatedDate = req.body.tUpdatedDate;
 
