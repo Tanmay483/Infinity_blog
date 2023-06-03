@@ -4,8 +4,8 @@ const sql = require('../config/db');
 const System = function (system) {
 
   this.vProjectName = system.vProjectName;
-  this.vProjectLogo = system.vProjectLogo.path;
-  this.vProjectLoginPageBgImage = system.vProjectLoginPageBgImage.path;
+  this.vProjectLogo = "http://localhost:8080/"+system.vProjectLogo.path.replace(/\\/g,'/');
+  this.vProjectLoginPageBgImage = "http://localhost:8080/"+system.vProjectLoginPageBgImage.path.replace(/\\/g,'/');
   this.vEmail = system.vEmail;
   this.vMobileNumber = system.vMobileNumber;
   this.vAddress	= system.vAddress;

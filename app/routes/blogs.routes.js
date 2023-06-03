@@ -23,8 +23,8 @@ module.exports = (app) => {
         const vBlogTitle = req.body.vBlogTitle;
         const vBlogTitleSlug = req.body.vBlogTitleSlug;
         const vBlogDescription = req.body.vBlogDescription;
-        const vBlogFeatureImage = '';
-        const vBlogThumbnailImage = '';
+        const vBlogFeatureImage ="http://localhost:8080/" + req.files[0].path.replace(/\\/g, '/');
+        const vBlogThumbnailImage = "http://localhost:8080/" + req.files[1].path.replace(/\\/g, '/');
         const tCreatedDate = req.body.tCreatedDate;
         const tUpdatedDate = req.body.tUpdatedDate;
 

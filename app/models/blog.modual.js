@@ -7,11 +7,12 @@ const Blog = function (blog) {
     this.vBlogTitle = blog.vBlogTitle;
     this.vBlogTitleSlug = blog.vBlogTitleSlug;
     this.vBlogDescription = blog.vBlogDescription;
-    this.vBlogFeatureImage = 'hello';
-    this.vBlogThumbnailImage = 'hello';
+    this.vBlogFeatureImage = "http://localhost:8080/"+blog.vBlogFeatureImage.path.replace(/\\/g,'/');
+    this.vBlogThumbnailImage = "http://localhost:8080/"+blog.vBlogThumbnailImage.path.replace(/\\/g,'/');
     this.tCreatedDate = blog.tCreatedDate;
     this.tUpdatedDate = blog.tUpdatedDate;
 };
+
 
 // POST
 Blog.create = (newblog, result) => {

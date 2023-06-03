@@ -16,8 +16,8 @@ exports.create = (req, res) => {
         vBlogTitle: req.body.vBlogTitle,
         vBlogTitleSlug: req.body.vBlogTitleSlug,
         vBlogDescription: req.body.vBlogDescription,
-        vBlogFeatureImage: '',
-        vBlogThumbnailImage: '',
+        vBlogFeatureImage: req.files[0],
+        vBlogThumbnailImage: req.files[1],
         tCreatedDate: req.body.tCreatedDate,
         tUpdatedDate: req.body.tUpdatedDate,
     });

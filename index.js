@@ -23,8 +23,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
     res.json({ message: 'Welcome to Infinity Blog' });
 });
-app.use('/images', express.static(path.join(__dirname, 'app/Images')));
-app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/app/Images', express.static(path.join(__dirname, 'app/Images')));
+
 
 require('./app/routes/user.routes')(app);
 require('./app/routes/catageories.routes')(app);
@@ -38,3 +38,5 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
+//http://localhost:8080/images/blog_Image/b_img-1684510992485.png avi store karavani cha
+// http://localhost:8080/app/Images/blog_Image/b_img-1685764461364.png avi store thai cha

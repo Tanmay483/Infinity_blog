@@ -5,7 +5,7 @@ const Category = function (category) {
 
   this.vCategoryName = category.vCategoryName;
   this.vCategorySlug = category.vCategorySlug;
-  this.vCategoryImage = category.vCategoryImage;
+  this.vCategoryImage = "http://localhost:8080/"+category.vCategoryImage;
   this.iParentCatID = category.iParentCatID;
   this.tCreatedDate = category.tCreatedDate;
   this.tUpdatedDate = category.tUpdatedDate;
