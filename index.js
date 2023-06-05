@@ -16,8 +16,6 @@ app.use(function (req, res, next) {
 
 app.use(bodyParser.json());
 
-// parse requests of content-type - application/x-www-form-urlencoded
-// app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
@@ -38,5 +36,3 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
-//http://localhost:8080/images/blog_Image/b_img-1684510992485.png avi store karavani cha
-// http://localhost:8080/app/Images/blog_Image/b_img-1685764461364.png avi store thai cha
