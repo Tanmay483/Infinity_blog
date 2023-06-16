@@ -49,21 +49,85 @@ Blog.findId = (vBlogTitleSlug, result) => {
 // GET all
 
 Blog.getAll = (title, result) => {
-    let query =
-        'SELECT tbl_blogs.*,tbl_categories.vCategoryName,tbl_categories.vCategorySlug,tbl_categories.vCategoryImage,tbl_categories.iParentCatID as ParentId FROM tbl_blogs INNER JOIN tbl_categories ON tbl_blogs.cId = tbl_categories.cId ';
-
+    let query = 'SELECT * FROM `tbl_blogs`';
     sql.query(query, (err, res) => {
-        if (err) {
+      if (err) {
+        console.log('error: ', err);
+        result(null, err);
+        return;
+      }
+  
+      console.log('Blogs: ', res);
+  
+      const response = [];
+      let completedBlogs = 0;
+      for (let i = 0; i < res.length; i++) {
+        const blog = res[i];
+        console.log('cId:', blog.cId);
+        console.log('iParentCatID:', blog.iParentCatID);
+        console.log('Blog:', blog);
+  
+        // Retrieve categories for each blog
+        let categoryQuery = 'SELECT vCategoryName, vCategorySlug FROM `tbl_categories` WHERE cId = ?';
+        sql.query(categoryQuery, blog.cId, (err, categoryRes) => {
+          if (err) {
             console.log('error: ', err);
             result(null, err);
             return;
-        }
-
-        console.log('Categories: ', res);
-        result(null, res);
+          }
+  
+          console.log('Categories:', categoryRes);
+  
+          // Retrieve additional fields from another table
+          let additionalFieldsQuery = 'SELECT vCategoryName as vSubCategoryName, vCategorySlug AS vSubCategorySlug FROM `tbl_categories` WHERE cId = ?';
+          sql.query(additionalFieldsQuery, blog.iParentCatID, (err, additionalFieldsRes) => {
+            if (err) {
+              console.log('error: ', err);
+              result(null, err);
+              return;
+            }
+  
+            console.log('Additional Fields:', additionalFieldsRes);
+  
+            // Merge category and additional fields into the blog object
+            var CatName = '';
+            var CatSlug = '';
+            var SubCatName = '';
+            var SubCatSlug = '';
+            if(blog.iParentCatID == 0){
+                CatName = categoryRes[0].vCategoryName;
+                CatSlug = categoryRes[0].vCategorySlug;
+                SubCatName = '';
+                SubCatSlug = '';
+            }
+            else{
+                SubCatName = categoryRes[0].vCategoryName;
+                SubCatSlug = categoryRes[0].vCategorySlug;
+                CatName  = additionalFieldsRes[0].vSubCategoryName;
+                CatSlug  = additionalFieldsRes[0].vSubCategorySlug;
+            }
+            const blogWithCategoriesAndFields = {
+              ...blog,
+              vCategoryName: CatName,
+              vCategorySlug: CatSlug,
+              vSubCategoryName: SubCatName,
+              vSubCategorySlug: SubCatSlug
+            };
+  
+            response.push(blogWithCategoriesAndFields);
+            completedBlogs++;
+  
+            // Check if all blogs have been processed
+            if (completedBlogs === res.length) {
+              result(null, response);
+            }
+          });
+        });
+      }
     });
-};
-
+  };
+  
+  
 //PUT
 
 Blog.updateById = (bId, blog, result) => {
