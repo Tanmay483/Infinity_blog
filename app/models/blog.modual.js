@@ -79,7 +79,7 @@ Blog.getAll = (title, result) => {
           console.log('Categories:', categoryRes);
   
           // Retrieve subcategory
-          let additionalFieldsQuery = 'SELECT vCategoryName as vSubCategoryName, vCategorySlug AS vSubCategorySlug FROM `tbl_categories` WHERE cId = ?';
+          let additionalFieldsQuery = 'SELECT vCategoryName as vSubCategoryName, vCategorySlug AS vSubCategorySlug FROM `tbl_categories` WHERE cId	 = ?';
           sql.query(additionalFieldsQuery, blog.iParentCatID, (err, additionalFieldsRes) => {
             if (err) {
               console.log('error: ', err);
@@ -89,7 +89,7 @@ Blog.getAll = (title, result) => {
   
             console.log('Additional Fields:', additionalFieldsRes);
   
-            // add SubCategory
+            // add SubCategory      
             var CatName = '';
             var CatSlug = '';
             var SubCatName = '';
@@ -101,10 +101,10 @@ Blog.getAll = (title, result) => {
                 SubCatSlug = '';
             }
             else{
-                CatName = categoryRes[0].vCategoryName;
-                CatSlug = categoryRes[0].vCategorySlug;
-                SubCatName  = additionalFieldsRes[0].vSubCategoryName;
-                SubCatSlug  = additionalFieldsRes[0].vSubCategorySlug;
+                SubCatName = categoryRes[0].vCategoryName;
+                SubCatSlug= categoryRes[0].vCategorySlug;
+                CatName  = additionalFieldsRes[0].vSubCategoryName;
+                CatSlug  = additionalFieldsRes[0].vSubCategorySlug;
             }
             const blogWithCategoriesAndFields = {
               ...blog,
