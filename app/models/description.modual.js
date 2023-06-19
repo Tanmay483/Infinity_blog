@@ -86,12 +86,17 @@ Description.updateById = (abId, description, result) => {
 };
 
 // DELET
+Description.remove = (bId, result) => {
+  if (!bId) {
+    result({ kind: "invalid_request" }, null);
+    return;
+  }
 
-Description.remove = (abId, result) => {
-  sql.query(`DELETE  FROM tbl_additional_blogs_desc WHERE abId = ${abId}`, (err, res) => {
+  const query = "DELETE FROM tbl_additional_blogs_desc WHERE bId = ?";
+  sql.query(query, [bId], (err, res) => {
     if (err) {
       console.log("error: ", err);
-      result(null, err);
+      result(err, null);
       return;
     }
 
@@ -100,9 +105,11 @@ Description.remove = (abId, result) => {
       return;
     }
 
-    console.log("deleted description with Id: ", abId);
+    console.log("deleted Description with bId: ", bId);
     result(null, res);
   });
 };
+
+
 
 module.exports = Description;

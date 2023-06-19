@@ -99,17 +99,22 @@ exports.update = (req, res) => {
 // DELETE Description 
 
 exports.delete = (req, res) => {
-  Description.remove(req.params.abId, (err, data) => {
+  const bId = req.params.bId; // Get the bId value from request parameters
+
+  Description.remove(bId, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Not found Description with id ${req.params.abId}.`
+          message: `Not found Description with id ${bId}.`
         });
       } else {
         res.status(500).send({
-          message: "Could not delete Description with id " + req.params.abId
+          message: "Could not delete Description with id " + bId
         });
       }
-    } else res.send({ message: `Description was deleted successfully!` });
+    } else {
+      res.send({ message: `Description was deleted successfully!` });
+    }
   });
 };
+

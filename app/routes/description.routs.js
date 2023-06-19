@@ -17,7 +17,7 @@ module.exports = app => {
     router.get("/:bId", Description.findOne);
 
 
-    router.put('/:abId', upload, (req, res) => {
+    router.put('/:bId', upload, (req, res) => {
         let abId = req.params.abId
         const bId = req.body.bId;
         const vBlogDescription = req.body.vBlogDescription;
@@ -38,7 +38,8 @@ module.exports = app => {
     
 
     // Delete a Description with id
-    router.delete("/:abId", Description.delete);
+    router.delete('/:bId', Description.delete);
+
 
     app.use('/app/description', router);
 };
