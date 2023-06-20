@@ -57,15 +57,15 @@ Blog.getAll = (title, result) => {
         return;
       }
   
-      console.log('Blogs: ', res);
+    //   colnsoe.log('Blogs: ', res);
   
       const response = [];
       let completedBlogs = 0;
       for (let i = 0; i < res.length; i++) {
         const blog = res[i];
-        console.log('cId:', blog.cId);
-        console.log('iParentCatID:', blog.iParentCatID);
-        console.log('Blog:', blog);
+        // console.log('cId:', blog.cId);
+        // console.log('iParentCatID:', blog.iParentCatID);
+        // console.log('Blog:', blog);
   
         // Retrieve categories for each blog
         let categoryQuery = 'SELECT vCategoryName, vCategorySlug FROM `tbl_categories` WHERE cId = ?';
@@ -76,7 +76,7 @@ Blog.getAll = (title, result) => {
             return;
           }
   
-          console.log('Categories:', categoryRes);
+        //   console.log('Categories:', categoryRes);
   
           // Retrieve subcategory
           let additionalFieldsQuery = 'SELECT vCategoryName as vSubCategoryName, vCategorySlug AS vSubCategorySlug FROM `tbl_categories` WHERE cId	 = ?';
@@ -87,24 +87,34 @@ Blog.getAll = (title, result) => {
               return;
             }
   
-            console.log('Additional Fields:', additionalFieldsRes);
+            // console.log('Additional Fields:', additionalFieldsRes);
   
-            // add SubCategory      
-            var CatName = '';
-            var CatSlug = '';
-            var SubCatName = '';
-            var SubCatSlug = '';
-            if(blog.iParentCatID == 0){
-                CatName = categoryRes[0].vCategoryName;
-                CatSlug = categoryRes[0].vCategorySlug;
-                SubCatName = '';
-                SubCatSlug = '';
-            }
-            else{
+            // add SubCategory
+            let CatName = '';
+            let CatSlug = '';
+            let SubCatName = '';
+            let SubCatSlug = '';
+            if (blog.iParentCatID == 0) {
+              CatName = categoryRes[0].vCategoryName;
+              CatSlug = categoryRes[0].vCategorySlug;
+              SubCatName = '';
+              SubCatSlug = '';
+            } else {
+              if (categoryRes.length === 0) {
+                // cId not found in tbl_categories
+                console.log('cId not found in tbl_categories');
+              } else {
                 SubCatName = categoryRes[0].vCategoryName;
-                SubCatSlug= categoryRes[0].vCategorySlug;
-                CatName  = additionalFieldsRes[0].vSubCategoryName;
-                CatSlug  = additionalFieldsRes[0].vSubCategorySlug;
+                SubCatSlug = categoryRes[0].vCategorySlug;
+              }
+  
+              if (additionalFieldsRes.length === 0) {
+                // cId not found in tbl_categories for subcategory
+                console.log('cId not found in tbl_categories for subcategory');
+              } else {
+                CatName = additionalFieldsRes[0].vSubCategoryName;
+                CatSlug = additionalFieldsRes[0].vSubCategorySlug;
+              }
             }
             const blogWithCategoriesAndFields = {
               ...blog,
@@ -119,6 +129,7 @@ Blog.getAll = (title, result) => {
   
             // Check if all blogs have been processed
             if (completedBlogs === res.length) {
+              console.log('Response:', response);
               result(null, response);
             }
           });
@@ -127,41 +138,7 @@ Blog.getAll = (title, result) => {
     });
   };
   
-  
-//PUT
-
-Blog.updateById = (bId, blog, result) => {
-    sql.query(
-        'UPDATE tbl_blogs SET cId=?,iParentCatID=?,vBlogTitle=?,vBlogDescription=?,vBlogFeatureImage=?,vBlogThumbnailImage=?,tCreatedDate=?,tUpdatedDate=? WHERE bId=?',
-        [
-            blog.cId,
-            blog.iParentCatID,
-            blog.vBlogTitle,
-            blog.vBlogDescription,
-            blog.vBlogFeatureImage,
-            blog.vBlogThumbnailImage,
-            blog.tCreatedDate,
-            blog.tUpdatedDate,
-            bId,
-        ],
-        (err, res) => {
-            if (err) {
-                console.log('error: ', err);
-                result(null, err);
-                return;
-            }
-
-            if (res.affectedRows == 0) {
-                result({ kind: 'not_found' }, null);
-                return;
-            }
-
-            console.log('updated blog: ', { bId: bId, ...blog });
-            result(null, { bId: bId, ...blog });
-        }
-    );
-};
-
+    
 // DELET
 
 Blog.remove = (bId, result) => {

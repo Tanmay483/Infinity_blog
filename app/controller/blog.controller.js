@@ -68,32 +68,6 @@ exports.findId = (req, res) => {
     });
 };
 
-// PUT
-
-exports.update = (req, res) => {
-    if (!req.body) {
-        res.status(400).send({
-            message: 'Content can not be empty!',
-        });
-    }
-
-    console.log(req.body);
-
-    Blog.updateById(req.params.bId, new Blog(req.body), (err, data) => {
-        if (err) {
-            if (err.kind === 'not_found') {
-                res.status(404).send({
-                    message: `Not found blog with id ${req.params.bId}.`,
-                });
-            } else {
-                res.status(500).send({
-                    message: 'Error updating blog with id ' + req.params.bId,
-                });
-            }
-        } else res.send(data);
-    });
-};
-
 // DELETE Tutorial
 
 exports.delete = (req, res) => {
