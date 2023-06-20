@@ -35,6 +35,7 @@ module.exports = (app) => {
           vBlogThumbnailImage = "http://localhost:8080/" + req.files[1].path.replace(/\\/g, '/');
         }
       
+        
         var sql =
           "UPDATE `tbl_blogs` SET `cId`='" +
           cId +
