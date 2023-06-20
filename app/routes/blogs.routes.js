@@ -23,42 +23,50 @@ module.exports = (app) => {
         const vBlogTitle = req.body.vBlogTitle;
         const vBlogTitleSlug = req.body.vBlogTitleSlug;
         const vBlogDescription = req.body.vBlogDescription;
-        const vBlogFeatureImage ="http://localhost:8080/" + req.files[0].path.replace(/\\/g, '/');
-        const vBlogThumbnailImage = "http://localhost:8080/" + req.files[1].path.replace(/\\/g, '/');
         const tCreatedDate = req.body.tCreatedDate;
         const tUpdatedDate = req.body.tUpdatedDate;
-
-
+      
+        // Check if images are provided
+        let vBlogFeatureImage = '';
+        let vBlogThumbnailImage = '';
+      
+        if (req.files && req.files.length > 0) {
+          vBlogFeatureImage = "http://localhost:8080/" + req.files[0].path.replace(/\\/g, '/');
+          vBlogThumbnailImage = "http://localhost:8080/" + req.files[1].path.replace(/\\/g, '/');
+        }
+      
         var sql =
-            "UPDATE `tbl_blogs` SET `cId`='" +
-            cId +
-            "',`iParentCatID`='" +
-            iParentCatID +
-            "',`vBlogTitle`= '" +
-            vBlogTitle +
-            "',`vBlogTitleSlug`='"+
-            vBlogTitleSlug+
-            "',`vBlogDescription`='" +
-            vBlogDescription +
-            "',`vBlogFeatureImage`='" +
-            vBlogFeatureImage +
-            "',`vBlogThumbnailImage`='" +
-            vBlogThumbnailImage +
-            "',`tCreatedDate`='" +
-            tCreatedDate +
-            "',`tUpdatedDate` = '" +
-            tUpdatedDate +
-            "'WHERE  bId = '" +
-            bId +
-            "' ";
+          "UPDATE `tbl_blogs` SET `cId`='" +
+          cId +
+          "',`iParentCatID`='" +
+          iParentCatID +
+          "',`vBlogTitle`= '" +
+          vBlogTitle +
+          "',`vBlogTitleSlug`='" +
+          vBlogTitleSlug +
+          "',`vBlogDescription`='" +
+          vBlogDescription +
+          "',`tCreatedDate`='" +
+          tCreatedDate +
+          "',`tUpdatedDate` = '" +
+          tUpdatedDate +
+          "',`vBlogFeatureImage`='" +
+          vBlogFeatureImage +
+          "',`vBlogThumbnailImage`='" +
+          vBlogThumbnailImage +
+          "' WHERE  bId = '" +
+          bId +
+          "' ";
+      
         conn.query(sql, (err, data) => {
-            if (err) throw err;
-            console.log('blog change sucessfully');
-            console.log(req.body);
+          if (err) throw err;
+          console.log('blog changed successfully');
+          console.log(req.body);
         });
-        res.send('blog change sucessfully');
-    });
-
+      
+        res.send('blog changed successfully');
+      });
+      
     // Delete a blog with id
     router.delete('/:bId', blog.delete);
 
