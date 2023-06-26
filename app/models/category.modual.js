@@ -5,7 +5,7 @@ const Category = function (category) {
 
   this.vCategoryName = category.vCategoryName;
   this.vCategorySlug = category.vCategorySlug;
-  this.vCategoryImage = "http://localhost:8080/"+category.vCategoryImage;
+  this.vCategoryImage = "http://localhost:8080/" + category.vCategoryImage;
   this.iParentCatID = category.iParentCatID;
   this.tCreatedDate = category.tCreatedDate;
   this.tUpdatedDate = category.tUpdatedDate;
@@ -68,7 +68,7 @@ Category.getAll = (title, result) => {
 Category.updateById = (cId, category, result) => {
   sql.query(
     "UPDATE tbl_categories SET vCategoryName=?,vCategorySlug=?,vCategoryImage=?,iParentCatID=?,tCreatedDate=?,tUpdatedDate=? WHERE cId=?",
-    [category.vCategoryName, category.vCategorySlug , category.vCategoryImage, category.iParentCatID, category.tCreatedDate, category.tUpdatedDate, cId],
+    [category.vCategoryName, category.vCategorySlug, category.vCategoryImage, category.iParentCatID, category.tCreatedDate, category.tUpdatedDate, cId],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -109,7 +109,7 @@ Category.remove = (cId, result) => {
 
 // get all sub category
 
-Category.subAll = (title,result) => {
+Category.subAll = (title, result) => {
   let query = "SELECT * FROM tbl_categories WHERE iParentCatID != 0";
 
   sql.query(query, (err, res) => {
@@ -124,5 +124,47 @@ Category.subAll = (title,result) => {
   });
 };
 
+// get category and subcategory
+
+Category.description = (iParentCatID, result) => {
+  sql.query(
+    `SELECT cId , vCategoryName, vCategorySlug FROM tbl_categories WHERE iParentCatID = 0`,
+    (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(err, null);
+        return;
+      }
+      if (res.length === 0) {
+        console.log('data not found');
+        result('error', null);
+        return;
+      }
+
+      const categories = res;
+
+      categories.forEach((category, index) => {
+        sql.query(
+          `SELECT cId , vCategoryName, vCategorySlug FROM tbl_categories WHERE iParentCatID = ${category.cId}`,
+          (err, res) => {
+            if (err) {
+              console.log('Error:', err);
+              result(err, null);
+              return;
+            }
+
+            categories[index].subCategories = res || [];
+
+            // Check if this is the last category 
+            if (index === categories.length - 1) {
+              console.log('found categories:', categories);
+              result(null, categories);
+            }
+          }
+        );
+      });
+    }
+  );
+};
 
 module.exports = Category;

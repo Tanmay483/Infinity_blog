@@ -11,17 +11,17 @@ exports.create = (req, res) => {
 
   // Create a category
   const category = new Category({
-     vCategoryName : req.body.vCategoryName,
-     vCategorySlug : req.body.vCategorySlug,
-     iParentCatID : req.body.iParentCatID,
-     vCategoryImage : req.file.path.replace(/\\/g,'/'),
-     tCreatedDate : req.body.tCreatedDate,
-     tUpdatedDate : req.body.tUpdatedDate,
+    vCategoryName: req.body.vCategoryName,
+    vCategorySlug: req.body.vCategorySlug,
+    iParentCatID: req.body.iParentCatID,
+    vCategoryImage: req.file.path.replace(/\\/g, '/'),
+    tCreatedDate: req.body.tCreatedDate,
+    tUpdatedDate: req.body.tUpdatedDate,
   });
 
-// POST
+  // POST
 
-Category.create(category, (err, data) => {
+  Category.create(category, (err, data) => {
     if (err)
       res.status(500).send({
         message:
@@ -50,19 +50,19 @@ exports.findAll = (req, res) => {
 
 exports.findParentId = (req, res) => {
   Category.findParentId(req.params.iParentCatID, (err, data) => {
-      if (err) {
-        if (err.kind === "not_found") {
-          res.status(404).send({
-            message: `Not found Categories with id ${req.params.iParentCatID}.`
-          });
-        } else {
-          res.status(500).send({
-            message: "Error retrieving Categories with iParentCatID " + req.params.iParentCatID
-          });
-        }
-      } else res.send(data);
-    });
-  };
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found Categories with id ${req.params.iParentCatID}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Error retrieving Categories with iParentCatID " + req.params.iParentCatID
+        });
+      }
+    } else res.send(data);
+  });
+};
 
 // PUT 
 
@@ -125,4 +125,22 @@ exports.subAll = (req, res) => {
       });
     else res.send(data);
   });
+};
+
+// get cid category
+exports.description = (req, res) => {
+  Category.description(req.params.iParentCatID, (err, data) => {
+    if (err) {
+      if (err.kind === 'not_found') {
+        res.status(404).send({
+          message: `Not found blog with id ${req.params.iParentCatID}.`,
+        });
+      } else {
+        res.status(500).send({
+          message: 'Error retrieving blog with Id ' + req.params.iParentCatID,
+        });
+      }
+    } else res.send(data);
+  });
+
 };
