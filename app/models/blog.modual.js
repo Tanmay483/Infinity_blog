@@ -48,8 +48,13 @@ Blog.findId = (vBlogTitleSlug, result) => {
 
 // GET all
 
-Blog.getAll = (title, result) => {
-  let query = 'SELECT * FROM `tbl_blogs`';
+Blog.getAll = (vBlogTitleSlug, result) => {
+  let query;
+  if (vBlogTitleSlug) {
+    query = `SELECT * FROM tbl_blogs WHERE vBlogTitleSlug = '${vBlogTitleSlug}' `;
+  } else {
+    query = `SELECT * FROM tbl_blogs`;
+  }
   sql.query(query, (err, res) => {
     if (err) {
       console.log('error: ', err);
@@ -69,7 +74,7 @@ Blog.getAll = (title, result) => {
           return;
         }
         // Retrieve subcategory
-        let additionalFieldsQuery = 'SELECT vCategoryName as vSubCategoryName, vCategorySlug AS vSubCategorySlug FROM `tbl_categories` WHERE cId	 = ?';
+        let additionalFieldsQuery = 'SELECT vCategoryName as vSubCategoryName, vCategorySlug AS vSubCategorySlug FROM `tbl_categories` WHERE cId   = ?';
         sql.query(additionalFieldsQuery, blog.iParentCatID, (err, additionalFieldsRes) => {
           if (err) {
             console.log('error: ', err);
@@ -121,6 +126,7 @@ Blog.getAll = (title, result) => {
     }
   });
 };
+
 
 
 // DELET

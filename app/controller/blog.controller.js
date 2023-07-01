@@ -37,19 +37,35 @@ exports.create = (req, res) => {
 // GET all  categories
 
 exports.findAll = (req, res) => {
-    const title = req.query.title;
-
-    Blog.getAll(title, (err, data) => {
-        if (err)
-            res.status(500).send({
-                message:
-                    err.message ||
-                    'Some error occurred while retrieving Categories.',
-            });
-        else res.send(data);
-    });
-};
-
+    const slug = req.params.vBlogTitleSlug;
+  
+    if (slug) {
+      Blog.getAll(slug, (err, data) => {
+        if (err) {
+          res.status(500).send({
+            message:
+              err.message ||
+              'Some error occurred while retrieving blogs with slug: ' + slug,
+          });
+        } else {
+          res.send(data);
+        }
+      });
+    } else {
+      Blog.getAll(null, (err, data) => {  
+        if (err) {
+          res.status(500).send({
+            message:
+              err.message ||
+              'Some error occurred while retrieving blogs.',
+          });
+        } else {
+          res.send(data);
+        }
+      });
+    }
+  };
+  
 //GET by blog title
 
 exports.findId = (req, res) => {

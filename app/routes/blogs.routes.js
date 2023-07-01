@@ -10,7 +10,7 @@ module.exports = (app) => {
   router.post('/', multer, blog.create);
 
   // Retrieve all blog
-  router.get('/', blog.findAll);
+  router.get('/:vBlogTitleSlug?', blog.findAll);
 
   //Retrive blog by title
   router.get('/title/:vBlogTitleSlug', blog.findId);
@@ -82,10 +82,6 @@ module.exports = (app) => {
       });
     });
   });
-
-
-
-
 
   // Delete a blog with id
   router.delete('/:bId', blog.delete);
