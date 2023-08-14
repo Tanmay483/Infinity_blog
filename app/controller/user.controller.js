@@ -23,7 +23,7 @@ exports.create = (req, res) => {
     tUpdatedDate: req.body.tUpdatedDate
   });
 
-//   // POST
+//  POST
 
 User.create(user, (err, data) => {
     if (err)

@@ -37,8 +37,7 @@ exports.create = (req, res) => {
 // GET all  categories
 
 exports.findAll = (req, res) => {
-    const slug = req.params.vBlogTitleSlug;
-  
+    const slug = req.params.vCategorySlug;
     if (slug) {
       Blog.getAll(slug, (err, data) => {
         if (err) {

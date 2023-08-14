@@ -48,83 +48,122 @@ Blog.findId = (vBlogTitleSlug, result) => {
 
 // GET all
 
-Blog.getAll = (vBlogTitleSlug, result) => {
-  let query;
-  if (vBlogTitleSlug) {
-    query = `SELECT * FROM tbl_blogs WHERE vBlogTitleSlug = '${vBlogTitleSlug}' `;
-  } else {
-    query = `SELECT * FROM tbl_blogs`;
-  }
-  sql.query(query, (err, res) => {
-    if (err) {
-      console.log('error: ', err);
-      result(null, err);
-      return;
-    }
-    const response = [];
-    let completedBlogs = 0;
-    for (let i = 0; i < res.length; i++) {
-      const blog = res[i];
-      // Retrieve categories for each blog
-      let categoryQuery = 'SELECT vCategoryName, vCategorySlug FROM `tbl_categories` WHERE cId = ?';
-      sql.query(categoryQuery, blog.cId, (err, categoryRes) => {
-        if (err) {
-          console.log('error: ', err);
-          result(null, err);
-          return;
-        }
-        // Retrieve subcategory
-        let additionalFieldsQuery = 'SELECT vCategoryName as vSubCategoryName, vCategorySlug AS vSubCategorySlug FROM `tbl_categories` WHERE cId   = ?';
-        sql.query(additionalFieldsQuery, blog.iParentCatID, (err, additionalFieldsRes) => {
-          if (err) {
-            console.log('error: ', err);
-            result(null, err);
+Blog.getAll = (vCategorySlug, result) => {
+  if (vCategorySlug) {
+   let query = `SELECT * FROM tbl_categories WHERE vCategorySlug = '${vCategorySlug}' `;
+    sql.query(query, (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(null, err);
+        return;
+      }
+      else if(res.length === 0){
+        result(null, {
+          message : "Category Not Found"
+        })
+      }
+      else{
+        for (let i = 0; i < res.length; i++) {
+          const category = res[i];
+          let Query;
+          if(category.iParentCatID === 0){
+            Query = "SELECT * FROM tbl_blogs where iParentCatID = ?";
+          }
+          else{
+            Query = "SELECT * FROM tbl_blogs where cId = ?"
+          }
+          sql.query(Query, category.cId, (err,resp) => {
+            if(err){
+              throw err;
+            }
+            else if(resp.length === 0){
+              result(null,{
+                message : "No result found"
+              })
+            }
+            else{
+              let categoryCount = 0;
+              let subcategoryCount = 0;
+              resp.forEach(categoryItem => {
+                let subcategoryQuery = "SELECT * FROM tbl_categories WHERE cId = ?";
+                sql.query(subcategoryQuery, categoryItem.cId, (err,subcategories) => {
+                  if (err) {
+                    throw err;
+                  }
+                  categoryItem.vSubCategoryName = subcategories[0].vCategoryName;
+                  categoryItem.vCategorySlug = subcategories[0].vCategorySlug;
+                  subcategoryCount++;
+                  if (subcategoryCount === resp.length && categoryCount === resp.length) {
+                    result(null, resp);
+                  }
+                  return;
+                })
+                let categoryQuery = "SELECT * FROM tbl_categories WHERE cId = ?"
+                sql.query(categoryQuery, categoryItem.iParentCatID, (err, categories) => {
+                  if(err){
+                    throw err;
+                  }
+                  else{
+                    console.log(categories)
+                    categoryItem.vSubCategoryName = categories[0].vCategoryName;
+                    categoryItem.vSubCategorySlug = categories[0].vCategorySlug;
+                    categoryCount++;
+                    if (subcategoryCount === resp.length && categoryCount === resp.length) {
+                      result(null, resp);
+                    }
+                    return;
+                  }
+                })
+              });
+            }
+          })
+        } 
+      }
+    });
+  } 
+  else {
+    let query = `SELECT * FROM tbl_blogs`;
+    sql.query(query, (err,resp) => {
+      if(err){
+        throw err;
+      }
+      else{
+        let categoryCount = 0;
+        let subcategoryCount = 0;
+        resp.forEach(categoryItem => {
+          let subcategoryQuery = "SELECT * FROM tbl_categories WHERE cId = ?";
+          sql.query(subcategoryQuery, categoryItem.cId, (err,subcategories) => {
+            if (err) {
+              throw err;
+            }
+            categoryItem.vSubCategoryName = subcategories[0].vCategoryName
+            categoryItem.vSubCategorySlug = subcategories[0].vCategorySlug
+            subcategoryCount++;
+            if (subcategoryCount === resp.length && categoryCount === resp.length) {
+              result(null, resp);
+            }
             return;
-          }
-          // add SubCategory
-          let CatName = '';
-          let CatSlug = '';
-          let SubCatName = '';
-          let SubCatSlug = '';
-          if (blog.iParentCatID == 0) {
-            CatName = categoryRes[0].vCategoryName;
-            CatSlug = categoryRes[0].vCategorySlug;
-            SubCatName = '';
-            SubCatSlug = '';
-          } else {
-            if (categoryRes.length === 0) {
-              console.log('cId not found in tbl_categories');
-            } else {
-              SubCatName = categoryRes[0].vCategoryName;
-              SubCatSlug = categoryRes[0].vCategorySlug;
+          })
+          let categoryQuery = "SELECT * FROM tbl_categories WHERE cId = ?"
+          sql.query(categoryQuery, categoryItem.iParentCatID, (err, categories) => {
+            if(err){
+              throw err;
             }
-
-            if (additionalFieldsRes.length === 0) {
-              console.log('cId not found in tbl_categories for subcategory');
-            } else {
-              CatName = additionalFieldsRes[0].vSubCategoryName;
-              CatSlug = additionalFieldsRes[0].vSubCategorySlug;
+            else{
+              console.log(categories)
+              categoryItem.vCategoryName = categories[0].vCategoryName;
+              categoryItem.vCategorySlug = categories[0].vCategorySlug;
+              categoryCount++;
+              if (subcategoryCount === resp.length && categoryCount === resp.length) {
+                result(null, resp);
+              }
+              return;
             }
-          }
-          const blogWithCategoriesAndFields = {
-            ...blog,
-            vCategoryName: CatName,
-            vCategorySlug: CatSlug,
-            vSubCategoryName: SubCatName,
-            vSubCategorySlug: SubCatSlug
-          };
-
-          response.push(blogWithCategoriesAndFields);
-          completedBlogs++;
-          // Check if all blogs have been processed
-          if (completedBlogs === res.length) {
-            console.log('Response:', response);
-            result(null, response);
-          }
+          })
         });
-      });
-    }
-  });
+      }
+    })
+  }
 };
 
 

@@ -17,25 +17,30 @@ module.exports = app => {
     router.get("/:bId", Description.findOne);
 
 
-    router.put('/:bId', upload, (req, res) => {
-        let abId = req.params.abId
-        const bId = req.body.bId;
-        const vBlogDescription = req.body.vBlogDescription;
-        const vBlogImage = "http://localhost:8080/" + req.file.path.replace(/\\/g, '/');
-        const tCreatedDate = req.body.tCreatedDate;
-        const tUpdatedDate = req.body.tUpdatedDate;
-
-        var sql = "UPDATE `tbl_additional_blogs_desc` SET `bId`='" + bId + "',`vBlogDescription`='" + vBlogDescription + "', `vBlogImage`='" + vBlogImage + "',`tCreatedDate`='" + tCreatedDate + "',`tUpdatedDate`='" + tUpdatedDate + "' WHERE `abId` = '" + abId + "' ";
-        
-        conn.query(sql, (err, data) => {
-            if (err) throw err;
-            console.log('Description cahnge scessfully')
-            console.log(vBlogImage)
+    router.put('/:abId', upload, (req, res) => {
+        let query = `UPDATE tbl_additional_blogs_desc SET bId=?,vBlogDescription=?,tCreatedDate=?,tUpdatedDate=?`
+        const queryParams = [
+            bId = req.body.bId,
+            vBlogDescription = req.body.vBlogDescription,
+            tCreatedDate = req.body.tCreatedDate,
+            tUpdatedDate = req.body.tUpdatedDate,  
+        ]
+        if (req.file) {
+            query += ", vBlogImage=?";
+            queryParams.push(vBlogImage = req.file.path.replace(/\\/g, '/'));
+        }
+        query += " WHERE abId = ?";
+        queryParams.push( abId = req.params.abId);
+        conn.query(query, queryParams, (err, result) => {
+            if (err) {
+                throw err;
+            }
+            else {
+                res.send("updated description")
+            }
         })
-        res.send("Description cahnge scessfully")
     })
 
-    
 
     // Delete a Description with id
     router.delete('/:bId', Description.delete);
@@ -43,3 +48,7 @@ module.exports = app => {
 
     app.use('/app/description', router);
 };
+// https://blog.infinitytuts.com/app/blog/description/17
+//app/Images/description_img/description_img-1691988183070.jpg
+//app/Images/description_img/description_img-1691988183070.jpg
+//

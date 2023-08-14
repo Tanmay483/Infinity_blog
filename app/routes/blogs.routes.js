@@ -10,7 +10,7 @@ module.exports = (app) => {
   router.post('/', multer, blog.create);
 
   // Retrieve all blog
-  router.get('/:vBlogTitleSlug?', blog.findAll);
+  router.get('/:vCategorySlug?', blog.findAll);
 
   //Retrive blog by title
   router.get('/title/:vBlogTitleSlug', blog.findId);
