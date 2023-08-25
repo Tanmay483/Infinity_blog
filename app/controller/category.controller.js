@@ -27,7 +27,12 @@ exports.create = (req, res) => {
         message:
           err.message || "Some error occurred while creating the Categories."
       });
-    else res.send(data);
+    else {
+      res.status(201).send({
+        message: "Successfully created",
+        data: data
+      });
+    }
   });
 };
 
@@ -42,7 +47,12 @@ exports.findAll = (req, res) => {
         message:
           err.message || "Some error occurred while retrieving Categories."
       });
-    else res.send(data);
+    else {
+      res.status(200).send({
+        message: "Successfully retrieved",
+        data: data
+      });
+    }
   });
 };
 
@@ -60,40 +70,15 @@ exports.findParentId = (req, res) => {
           message: "Error retrieving Categories with iParentCatID " + req.params.iParentCatID
         });
       }
-    } else res.send(data);
+    } else {
+      res.status(200).send({
+        message: "Successfully retrieved",
+        data: data
+      });
+    }
   });
 };
 
-// PUT 
-
-exports.update = (req, res) => {
-
-  if (!req.body) {
-    res.status(400).send({
-      message: "Content can not be empty!"
-    });
-  }
-
-  console.log(req.body);
-
-  Category.updateById(
-    req.params.cId,
-    new Category(req.body),
-    (err, data) => {
-      if (err) {
-        if (err.kind === "not_found") {
-          res.status(404).send({
-            message: `Not found Categories with id ${req.params.cId}.`
-          });
-        } else {
-          res.status(500).send({
-            message: "Error updating Categories with id " + req.params.cId
-          });
-        }
-      } else res.send(data);
-    }
-  );
-};
 
 // DELETE category 
 
@@ -123,7 +108,12 @@ exports.subAll = (req, res) => {
         message:
           err.message || "Some error occurred while retrieving Categories."
       });
-    else res.send(data);
+    else {
+      res.status(200).send({
+        message: "Successfully retrieved",
+        data: data
+      });
+    };
   });
 };
 
@@ -140,7 +130,12 @@ exports.description = (req, res) => {
           message: 'Error retrieving blog with Id ' + req.params.iParentCatID,
         });
       }
-    } else res.send(data);
+    } else {
+      res.status(200).send({
+        message: "Successfully retrieved",
+        data: data
+      });
+    }
   });
 
 };

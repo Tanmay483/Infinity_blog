@@ -12,24 +12,29 @@ exports.create = (req, res) => {
 
   // Create a Tutorial
   const system = new System({
-    vProjectName:req.body.vProjectName,
+    vProjectName: req.body.vProjectName,
     vProjectLogo: req.files[0],
     vProjectLoginPageBgImage: req.files[1],
     vEmail: req.body.vEmail,
-    vMobileNumber:req.body.vMobileNumber,
+    vMobileNumber: req.body.vMobileNumber,
     vAddress: req.body.vAddress,
     tCreatedDate: req.body.tCreatedDate,
   });
 
- // POST
+  // POST
 
- System.create(system, (err, data) => {
+  System.create(system, (err, data) => {
     if (err)
       res.status(500).send({
         message:
           err.message || "Some error occurred while creating the system."
       });
-    else res.send(data);
+    else {
+      res.status(201).send({
+        message: "Successfully created",
+        data: data
+      });
+    }
   });
 };
 
@@ -44,7 +49,12 @@ exports.findAll = (req, res) => {
         message:
           err.message || "Some error occurred while retrieving system."
       });
-    else res.send(data);
+    else {
+      res.status(200).send({
+        message: "successfully retrieved",
+        data: data
+      });
+    }
   });
 };
 
@@ -52,50 +62,23 @@ exports.findAll = (req, res) => {
 
 exports.findOne = (req, res) => {
   System.findById(req.params.sId, (err, data) => {
-      if (err) {
-        if (err.kind === "not_found") {
-          res.status(404).send({
-            message: `Not found system with id ${req.params.sId}.`
-          });
-        } else {
-          res.status(500).send({
-            message: "Error retrieving system with id " + req.params.sId
-          });
-        }
-      } else res.send(data);
-    });
-  };
-
-
-// PUT 
-
-exports.update = (req, res) => {
-
-  if (!req.body) {
-    res.status(400).send({
-      message: "Content can not be empty!"
-    });
-  }
-
-  console.log(req.body);
-
-  System.updateById(
-    req.params.sId,
-    new System(req.body),
-    (err, data) => {
-      if (err) {
-        if (err.kind === "not_found") {
-          res.status(404).send({
-            message: `Not found system with id ${req.params.sId}.`
-          });
-        } else {
-          res.status(500).send({
-            message: "Error updating system with id " + req.params.sId
-          });
-        }
-      } else res.send(data);
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found system with id ${req.params.sId}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Error retrieving system with id " + req.params.sId
+        });
+      }
+    } else {
+      res.status(200).send({
+        message: "successfully retrieved",
+        data: data
+      });
     }
-  );
+  });
 };
 
 // DELETE Tutorial 

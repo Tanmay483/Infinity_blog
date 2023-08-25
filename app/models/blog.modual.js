@@ -7,8 +7,8 @@ const Blog = function (blog) {
   this.vBlogTitle = blog.vBlogTitle;
   this.vBlogTitleSlug = blog.vBlogTitleSlug;
   this.vBlogDescription = blog.vBlogDescription;
-  this.vBlogFeatureImage = "http://localhost:8080/" + blog.vBlogFeatureImage.path.replace(/\\/g, '/');
-  this.vBlogThumbnailImage = "http://localhost:8080/" + blog.vBlogThumbnailImage.path.replace(/\\/g, '/');
+  this.vBlogFeatureImage =  blog.vBlogFeatureImage.path.replace(/\\/g, '/');
+  this.vBlogThumbnailImage =  blog.vBlogThumbnailImage.path.replace(/\\/g, '/');
   this.tCreatedDate = blog.tCreatedDate;
   this.tUpdatedDate = blog.tUpdatedDate;
 };
@@ -39,7 +39,7 @@ Blog.findId = (vBlogTitleSlug, result) => {
     }
     if (res.length) {
       console.log('found blog: ', res);
-      result(null, res);
+      result(null, res[0]);
       return;
     }
     result({ kind: 'not_found' }, null);

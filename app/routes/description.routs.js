@@ -36,7 +36,9 @@ module.exports = app => {
                 throw err;
             }
             else {
-                res.send("updated description")
+                res.status(200).send({
+                    message: "database updated successfully",
+                  });
             }
         })
     })
@@ -48,7 +50,3 @@ module.exports = app => {
 
     app.use('/app/description', router);
 };
-// https://blog.infinitytuts.com/app/blog/description/17
-//app/Images/description_img/description_img-1691988183070.jpg
-//app/Images/description_img/description_img-1691988183070.jpg
-//

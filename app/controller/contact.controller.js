@@ -21,13 +21,18 @@ exports.create = (req, res) => {
 
   Contact.create(contact, (err, data) => {
     if (err)
-        res.status(500).send({
-            message:
-                err.message ||
-                'Some error occurred .',
-        });
-    else res.send(data);
-});
+      res.status(500).send({
+        message:
+          err.message ||
+          'Some error occurred .',
+      });
+    else {
+      res.status(201).send({
+        message: "successfully created",
+        data: data
+      });
+    }
+  });
 };
 
 // GET all  
@@ -41,6 +46,11 @@ exports.findAll = (req, res) => {
         message:
           err.message || "Some error occurred while retrieving user."
       });
-    else res.send(data);
+    else {
+      res.status(200).send({
+        message: "successfully retrieved",
+        data: data
+      });
+    }
   });
 };

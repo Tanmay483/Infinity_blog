@@ -13,19 +13,19 @@ exports.create = (req, res) => {
 
   // Create a Tutorial
   const user = new User({
-    vUserName:req.body.vUserName,
+    vUserName: req.body.vUserName,
     vFirstName: req.body.vFirstName,
     vLastName: req.body.vLastName,
     vEmailId: req.body.vEmailId,
-    vPassword:req.body.vPassword,
+    vPassword: req.body.vPassword,
     vMobileNumber: req.body.vMobileNumber,
     tCreatedDate: req.body.tCreatedDate,
     tUpdatedDate: req.body.tUpdatedDate
   });
 
-//  POST
+  //  POST
 
-User.create(user, (err, data) => {
+  User.create(user, (err, data) => {
     if (err)
       res.status(500).send({
         message:
@@ -50,7 +50,12 @@ exports.findAll = (req, res) => {
         message:
           err.message || "Some error occurred while retrieving user."
       });
-    else res.send(data);
+    else {
+      res.status(200).send({
+        message: "User retrieved successfully",
+        user: data
+      });
+    }
   });
 };
 
@@ -68,7 +73,12 @@ exports.findOne = (req, res) => {
           message: "Error retrieving User with id " + req.params.uId
         });
       }
-    } else res.send(data);
+    } else {
+      res.status(200).send({
+        message: "User retrieved successfully",
+        user: data
+      });
+    }
   });
 };
 
@@ -99,7 +109,11 @@ exports.update = (req, res) => {
             message: "Error updating User with id " + req.params.uId
           });
         }
-      } else res.send(data);
+      } else {
+        res.status(200).send({
+          message: "database updated successfully",
+        });
+      }
     }
   );
 };

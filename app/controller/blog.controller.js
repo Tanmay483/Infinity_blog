@@ -30,7 +30,12 @@ exports.create = (req, res) => {
                     err.message ||
                     'Some error occurred while creating the blog.',
             });
-        else res.send(data);
+        else {
+            res.status(201).send({
+                message: "blog has been created",
+                data: data
+            });
+        }
     });
 };
 
@@ -39,32 +44,34 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     const slug = req.params.vCategorySlug;
     if (slug) {
-      Blog.getAll(slug, (err, data) => {
-        if (err) {
-          res.status(500).send({
-            message:
-              err.message ||
-              'Some error occurred while retrieving blogs with slug: ' + slug,
-          });
-        } else {
-          res.send(data);
-        }
-      });
+        Blog.getAll(slug, (err, data) => {
+            if (err) {
+                res.status(500).send({
+                    message:
+                        err.message ||
+                        'Some error occurred while retrieving blogs with slug: ' + slug,
+                });
+            } else {
+                res.send(data);
+            }
+        });
     } else {
-      Blog.getAll(null, (err, data) => {  
-        if (err) {
-          res.status(500).send({
-            message:
-              err.message ||
-              'Some error occurred while retrieving blogs.',
-          });
-        } else {
-          res.send(data);
-        }
-      });
+        Blog.getAll(null, (err, data) => {
+            if (err) {
+                res.status(500).send({
+                    message:
+                        err.message ||
+                        'Some error occurred while retrieving blogs.',
+                });
+            } else {
+                res.status(200).send({
+                    message: "sucessfully retrieved"
+                });
+            }
+        });
     }
-  };
-  
+};
+
 //GET by blog title
 
 exports.findId = (req, res) => {
@@ -79,7 +86,12 @@ exports.findId = (req, res) => {
                     message: 'Error retrieving blog with Title ' + req.params.vBlogTitleSlug,
                 });
             }
-        } else res.send(data);
+        } else {
+            res.status(200).send({
+                message: "sucessfully retrieved",
+                data: data
+            });
+        }
     });
 };
 
@@ -114,7 +126,12 @@ exports.description = (req, res) => {
                     message: 'Error retrieving blog with Id ' + req.params.bId,
                 });
             }
-        } else res.send(data);
+        } else {
+            res.status(200).send({
+                message: "sucessfully retrieved",
+                data: data
+            });
+        }
     });
-    
+
 };

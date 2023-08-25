@@ -36,10 +36,10 @@ module.exports = (app) => {
       // Check if images are provided
       if (req.files && req.files.length > 0) {
         if (req.files[0] && req.files[0].path) {
-          vBlogFeatureImage = "http://localhost:8080/" + req.files[0].path.replace(/\\/g, '/');
+          vBlogFeatureImage = req.files[0].path.replace(/\\/g, '/');
         }
         if (req.files[1] && req.files[1].path) {
-          vBlogThumbnailImage = "http://localhost:8080/" + req.files[1].path.replace(/\\/g, '/');
+          vBlogThumbnailImage = req.files[1].path.replace(/\\/g, '/');
         }
       }
 
@@ -77,8 +77,9 @@ module.exports = (app) => {
       conn.query(sql, (err, data) => {
         if (err) throw err;
         console.log('Blog changed successfully');
-        console.log(req.body);
-        res.send('Blog changed successfully');
+        res.status(200).send({
+          message: "database updated successfully",
+        });
       });
     });
   });

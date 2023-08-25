@@ -32,7 +32,7 @@ module.exports = app => {
       let filename = '';
 
       if (req.file && req.file.path) {
-        filename = "http://localhost:8080/" + req.file.path.replace(/\\/g, '/');
+        filename = req.file.path.replace(/\\/g, '/');
         console.log(filename);
       }
       if (!filename) {
@@ -48,7 +48,9 @@ module.exports = app => {
           res.status(500).send('An error occurred while updating the category.');
         } else {
           console.log('Category changed successfully');
-          res.send('Category changed successfully');
+          res.status(200).send({
+            message: "Database updated successfully",
+          });
         }
       });
     })
