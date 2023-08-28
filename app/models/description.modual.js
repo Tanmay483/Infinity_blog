@@ -5,7 +5,6 @@ const Description = function (description) {
 
   this.bId = description.bId;
   this.vBlogDescription	 = description.vBlogDescription;
-  // this.vBlogImage = description.vBlogImage;
   this.tCreatedDate = description.tCreatedDate;
   this.tUpdatedDate = description.tUpdatedDate;
 };

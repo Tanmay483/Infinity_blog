@@ -23,6 +23,7 @@ require('./app/routes/blogs.routes')(app);
 require('./app/routes/system.routes')(app);
 require('./app/routes/description.routs')(app);
 require('./app/routes/contanct.routes')(app);
+require('./app/routes/modes.routes')(app)
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
