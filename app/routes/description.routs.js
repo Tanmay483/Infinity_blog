@@ -18,12 +18,13 @@ module.exports = app => {
 
 
     router.put('/:abId', upload, (req, res) => {
-        let query = `UPDATE tbl_additional_blogs_desc SET bId=?,vBlogDescription=?,tCreatedDate=?,tUpdatedDate=?`
+        let query = `UPDATE tbl_additional_blogs_desc SET bId=?,vBlogDescription=?,tCreatedDate=?,tUpdatedDate=?,Mode=?`
         const queryParams = [
             bId = req.body.bId,
             vBlogDescription = req.body.vBlogDescription,
             tCreatedDate = req.body.tCreatedDate,
-            tUpdatedDate = req.body.tUpdatedDate,  
+            tUpdatedDate = req.body.tUpdatedDate, 
+            Mode = req.body.mode,
         ]
         if (req.file) {
             query += ", vBlogImage=?";

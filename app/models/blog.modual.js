@@ -11,7 +11,6 @@ const Blog = function (blog) {
   this.vBlogThumbnailImage =  blog.vBlogThumbnailImage.path.replace(/\\/g, '/');
   this.tCreatedDate = blog.tCreatedDate;
   this.tUpdatedDate = blog.tUpdatedDate;
-  this.Mode = blog.Mode
 };
 
 

@@ -14,9 +14,9 @@ exports.create = (req, res) => {
   const description = new Description({
     bId	:req.body.bId,
     vBlogDescription: req.body.vBlogDescription,
-    // vBlogImage: req.file.path.replace(/\\/g,'/'),
     tCreatedDate: req.body.tCreatedDate,
     tUpdatedDate:req.body.tUpdatedDate,
+    Mode: req.body.Mode
   });
 
 //   // POST

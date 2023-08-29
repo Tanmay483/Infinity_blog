@@ -7,6 +7,7 @@ const Description = function (description) {
   this.vBlogDescription	 = description.vBlogDescription;
   this.tCreatedDate = description.tCreatedDate;
   this.tUpdatedDate = description.tUpdatedDate;
+  this.Mode = description.Mode;
 };
 
 // POST 
@@ -19,8 +20,8 @@ Description.create = (newdescription, result) => {
       return;
     }
     
-    console.log("created tutorial: ", { abId: res.insertabId, ...newdescription });
-    result(null, { abId: res.insertabId, ...newdescription });
+    console.log("created tutorial: ", { abId: res.insertId, ...newdescription });
+    result(null, { abId: res.insertId, ...newdescription });
   });
 };
 // console.log(vBlogImage)

@@ -25,7 +25,7 @@ module.exports = (app) => {
     const vBlogDescription = req.body.vBlogDescription;
     const tCreatedDate = req.body.tCreatedDate;
     const tUpdatedDate = req.body.tUpdatedDate;
-    const Mode = req.body.mode;
+    
     // Retrieve existing image paths from the database
     var sql = "SELECT vBlogFeatureImage, vBlogThumbnailImage FROM `tbl_blogs` WHERE bId = '" + bId + "'";
     conn.query(sql, (err, response) => {
@@ -71,7 +71,7 @@ module.exports = (app) => {
         vBlogFeatureImage +
         "',`vBlogThumbnailImage`='"
         + vBlogThumbnailImage +
-        "', `Mode` = "+ Mode + " WHERE  bId = '" 
+        "' WHERE  bId = '" 
         + bId +
          "' ";
       conn.query(sql, (err, data) => {

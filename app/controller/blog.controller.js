@@ -20,7 +20,6 @@ exports.create = (req, res) => {
         vBlogThumbnailImage: req.files[1],
         tCreatedDate: req.body.tCreatedDate,
         tUpdatedDate: req.body.tUpdatedDate,
-        Mode: req.body.mode
     });
     // POST
 
