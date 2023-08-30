@@ -7,8 +7,8 @@ const Blog = function (blog) {
   this.vBlogTitle = blog.vBlogTitle;
   this.vBlogTitleSlug = blog.vBlogTitleSlug;
   this.vBlogDescription = blog.vBlogDescription;
-  this.vBlogFeatureImage =  blog.vBlogFeatureImage.path.replace(/\\/g, '/');
-  this.vBlogThumbnailImage =  blog.vBlogThumbnailImage.path.replace(/\\/g, '/');
+  this.vBlogFeatureImage = blog.vBlogFeatureImage.path.replace(/\\/g, '/');
+  this.vBlogThumbnailImage = blog.vBlogThumbnailImage.path.replace(/\\/g, '/');
   this.tCreatedDate = blog.tCreatedDate;
   this.tUpdatedDate = blog.tUpdatedDate;
 };
@@ -50,43 +50,44 @@ Blog.findId = (vBlogTitleSlug, result) => {
 
 Blog.getAll = (vCategorySlug, result) => {
   if (vCategorySlug) {
-   let query = `SELECT * FROM tbl_categories WHERE vCategorySlug = '${vCategorySlug}' `;
+    let query = `SELECT * FROM tbl_categories WHERE vCategorySlug = '${vCategorySlug}' `;
     sql.query(query, (err, res) => {
       if (err) {
         console.log('error: ', err);
         result(null, err);
         return;
       }
-      else if(res.length === 0){
+      else if (res.length === 0) {
         result(null, {
-          message : "Category Not Found"
+          message: "Category Not Found"
         })
       }
-      else{
+      else {
         for (let i = 0; i < res.length; i++) {
           const category = res[i];
           let Query;
-          if(category.iParentCatID === 0){
+          if (category.iParentCatID === 0) {
             Query = "SELECT * FROM tbl_blogs where iParentCatID = ?";
           }
-          else{
+          else {
             Query = "SELECT * FROM tbl_blogs where cId = ?"
           }
-          sql.query(Query, category.cId, (err,resp) => {
-            if(err){
+          sql.query(Query, category.cId, (err, resp) => {
+            if (err) {
               throw err;
             }
-            else if(resp.length === 0){
-              result(null,{
-                message : "No result found"
+            else if (resp.length === 0) {
+              result(null, {
+                message: "No result found"
               })
             }
-            else{
+            else {
               let categoryCount = 0;
               let subcategoryCount = 0;
               resp.forEach(categoryItem => {
                 let subcategoryQuery = "SELECT * FROM tbl_categories WHERE cId = ?";
-                sql.query(subcategoryQuery, categoryItem.cId, (err,subcategories) => {
+                sql.query(subcategoryQuery, categoryItem.cId, (err, subcategories) => {
+                  console.log(`hindu` + categoryItem.cId)
                   if (err) {
                     throw err;
                   }
@@ -100,11 +101,11 @@ Blog.getAll = (vCategorySlug, result) => {
                 })
                 let categoryQuery = "SELECT * FROM tbl_categories WHERE cId = ?"
                 sql.query(categoryQuery, categoryItem.iParentCatID, (err, categories) => {
-                  if(err){
+                  if (err) {
                     throw err;
                   }
-                  else{
-                    console.log(categories)
+                  else {
+                    // console.log(categories)
                     categoryItem.vSubCategoryName = categories[0].vCategoryName;
                     categoryItem.vSubCategorySlug = categories[0].vCategorySlug;
                     categoryCount++;
@@ -117,22 +118,23 @@ Blog.getAll = (vCategorySlug, result) => {
               });
             }
           })
-        } 
+        }
       }
     });
-  } 
+  }
   else {
     let query = `SELECT * FROM tbl_blogs`;
-    sql.query(query, (err,resp) => {
-      if(err){
+    sql.query(query, (err, resp) => {
+      if (err) {
         throw err;
       }
-      else{
+      else {
         let categoryCount = 0;
         let subcategoryCount = 0;
         resp.forEach(categoryItem => {
           let subcategoryQuery = "SELECT * FROM tbl_categories WHERE cId = ?";
-          sql.query(subcategoryQuery, categoryItem.cId, (err,subcategories) => {
+          console.log(categoryItem.cId)
+          sql.query(subcategoryQuery, categoryItem.cId, (err, subcategories) => {
             if (err) {
               throw err;
             }
@@ -146,10 +148,10 @@ Blog.getAll = (vCategorySlug, result) => {
           })
           let categoryQuery = "SELECT * FROM tbl_categories WHERE cId = ?"
           sql.query(categoryQuery, categoryItem.iParentCatID, (err, categories) => {
-            if(err){
+            if (err) {
               throw err;
             }
-            else{
+            else {
               console.log(categories)
               categoryItem.vCategoryName = categories[0].vCategoryName;
               categoryItem.vCategorySlug = categories[0].vCategorySlug;

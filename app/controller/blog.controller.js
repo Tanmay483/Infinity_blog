@@ -65,7 +65,8 @@ exports.findAll = (req, res) => {
                 });
             } else {
                 res.status(200).send({
-                    message: "sucessfully retrieved"
+                    message: "sucessfully retrieved",
+                    data: data
                 });
             }
         });
