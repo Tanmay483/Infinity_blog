@@ -92,4 +92,3 @@ module.exports = (app) => {
 
   app.use('/app/blog', router);
 };
-// get blog by title

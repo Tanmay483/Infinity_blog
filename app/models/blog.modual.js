@@ -13,7 +13,6 @@ const Blog = function (blog) {
   this.tUpdatedDate = blog.tUpdatedDate;
 };
 
-
 // POST
 Blog.create = (newblog, result) => {
   sql.query('INSERT INTO tbl_blogs SET ?', newblog, (err, res) => {
@@ -29,7 +28,6 @@ Blog.create = (newblog, result) => {
 };
 
 //GET blog by id
-
 Blog.findId = (vBlogTitleSlug, result) => {
   sql.query(`SELECT * FROM tbl_blogs WHERE vBlogTitleSlug = '${vBlogTitleSlug}'`, (err, res) => {
     if (err) {
@@ -47,7 +45,6 @@ Blog.findId = (vBlogTitleSlug, result) => {
 };
 
 // GET all
-
 Blog.getAll = (vCategorySlug, result) => {
   if (vCategorySlug) {
     let query = `SELECT * FROM tbl_categories WHERE vCategorySlug = '${vCategorySlug}' `;
@@ -168,10 +165,7 @@ Blog.getAll = (vCategorySlug, result) => {
   }
 };
 
-
-
 // DELET
-
 Blog.remove = (bId, result) => {
   sql.query(`DELETE  FROM tbl_blogs WHERE bId = ${bId}`, (err, res) => {
     if (err) {
@@ -190,7 +184,6 @@ Blog.remove = (bId, result) => {
 };
 
 // get cid from category
-
 Blog.description = (bId, result) => {
   sql.query(
     `SELECT * FROM tbl_blogs WHERE bId = ${bId}`,
@@ -231,6 +224,5 @@ Blog.description = (bId, result) => {
     }
   );
 };
-
 
 module.exports = Blog;

@@ -6,8 +6,17 @@ module.exports = app => {
     // Retrieve all Tutorials
     router.get("/", mode.findAll);
   
-    // Retrieve a single Tutorial with id
+    // Retrieve with id
     router.get("/:Id", mode.findOne);
+
+    //insert
+    router.post('/',mode.create)
+
+    //update
+    router.put('/update/:Id', mode.update)
+
+    //delete
+    router.delete('/delete/:Id', mode.delete)
   
     app.use('/app/mode', router);
 };

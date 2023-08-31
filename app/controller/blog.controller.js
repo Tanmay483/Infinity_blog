@@ -40,7 +40,6 @@ exports.create = (req, res) => {
 };
 
 // GET all  categories
-
 exports.findAll = (req, res) => {
     const slug = req.params.vCategorySlug;
     if (slug) {
@@ -74,7 +73,6 @@ exports.findAll = (req, res) => {
 };
 
 //GET by blog title
-
 exports.findId = (req, res) => {
     Blog.findId(req.params.vBlogTitleSlug, (err, data) => {
         if (err) {
@@ -97,7 +95,6 @@ exports.findId = (req, res) => {
 };
 
 // DELETE Tutorial
-
 exports.delete = (req, res) => {
     Blog.remove(req.params.bId, (err, data) => {
         if (err) {
