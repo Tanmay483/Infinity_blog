@@ -9,6 +9,9 @@ module.exports = app => {
     // Retrieve all Tutorials
     router.get("/", user.findAll);
 
+    // delete
+    router.delete('/delete/:conId', user.delete);
+
   
     app.use('/app/contact', router);
 };

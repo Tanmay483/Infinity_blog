@@ -54,3 +54,20 @@ exports.findAll = (req, res) => {
     }
   });
 };
+
+// delete
+exports.delete = (req, res) => {
+  Contact.remove(req.params.conId, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found contact  with id ${req.params.conId}.`
+        });
+      } else {
+        res.send({
+          message: "Could not delete contact with id " + req.params.conId
+        });
+      }
+    } else res.status(200).send({ message: `contact was deleted successfully!` });
+  });
+};
